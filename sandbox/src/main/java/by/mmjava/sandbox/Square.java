@@ -9,4 +9,8 @@ public class Square {
         this.l=l;
         //attribute=variable from function's argument
     }
+    public  double area(){
+        return this.l*this.l;
+
+    }
 }

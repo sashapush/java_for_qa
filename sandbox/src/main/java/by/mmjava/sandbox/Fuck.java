@@ -10,20 +10,15 @@ public class Fuck {
 Square var =new Square(5);
 
         double azaza =5;
-        System.out.println("Area of square with " +var.l+ " side"+ " is = "  + area(var) + " metrov");
+        System.out.println("Area of square with " +var.l+ " side"+ " is = "  + var.area() + " metrov");
         Rectangle rekted = new Rectangle(4,44);
-        System.out.println("Area of pentagon with sides " + rekted.a +" and " + rekted.b +  " = " + area(rekted)+" metrov");
+        System.out.println("Area of pentagon with sides " + rekted.a +" and " + rekted.b +  " = " + rekted.area()+" metrov");
     }
 	public static void hello(String smb){
 
         //System.out.println ("Hell MR "+ smb + "!");
     }
-    public static double area (Square var){
-		    return var.l*var.l;
 
-    }
-    public static double area (Rectangle rekted){
-        return rekted.a*rekted.b;
-    }
+
 
 }

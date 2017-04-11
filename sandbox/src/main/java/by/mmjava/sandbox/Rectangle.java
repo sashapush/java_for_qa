@@ -13,5 +13,7 @@ public class Rectangle {
         this.b=b;
         //attribute=variable from function's argument
     }
-
+    public  double area(){
+       return this.a*this.b;
+    }
 }
