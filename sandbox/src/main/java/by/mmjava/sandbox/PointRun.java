@@ -5,8 +5,8 @@ package by.mmjava.sandbox;
  */
 public class PointRun {
     public static void main(String[] args) {
-        Point p1 = new Point(100, 2);
-        Point p2 = new Point(4, 33);
+        Point p1 = new Point(-11,-66);
+        Point p2 = new Point(0,55);
         System.out.println("(By method) Path between [" + p1.x + ";"+ p1.y + "] and [" +p2.x+";"+p2.y + "] is = " + p1.distance(p2));
 
 
