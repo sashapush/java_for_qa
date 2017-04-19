@@ -18,16 +18,11 @@ import static org.openqa.selenium.OutputType.*;
 
 public class GroupCreationTests {
     FirefoxDriver wd;
-   
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    }
-    
-    @Test
-    public void GroupCreationTests() {
-    ;
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.cssSelector("html")).click();
         wd.findElement(By.cssSelector("html")).click();
@@ -39,6 +34,12 @@ public class GroupCreationTests {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys("secret");
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    }
+    
+    @Test
+    public void testGroupCreation() {
+    ;
+
         wd.findElement(By.cssSelector("html")).click();
         wd.findElement(By.cssSelector("body")).click();
         wd.findElement(By.cssSelector("body")).click();
