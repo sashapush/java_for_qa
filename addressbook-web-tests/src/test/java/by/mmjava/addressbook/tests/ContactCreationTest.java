@@ -1,5 +1,6 @@
-package by.mmjava.addressbook;
+package by.mmjava.addressbook.tests;
 
+import by.mmjava.addressbook.model.ContactData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -23,14 +24,14 @@ public class ContactCreationTest {
         login();
         gotoAddNewContact();
         //to do - send photo
-        addContactData(new ContactData("alex", "middle", "last", "nick", "title", "company name", "address 1", "12345", "67894", "54564", "11", "test@test.com", "test2@test.com", "test3@test.com", "http://test.com", "address 1\naddress 2", "1992", "2222", "secondary address", "secondary home", "secondary notes"));
+        addContactData(new ContactData("alex", "middle", "last", "nick", "title", "company name", "address 1", "12345", "67894", "54564", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "secondary address", "secondary home", "secondary notes"));
         submitContactData();
         viewCreatedContactData();
         wd.findElement(By.xpath("//tr[@class='odd']/td[7]/a/img")).click();
     }
 
     private void viewCreatedContactData() {
-        wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();  //click on Contact Data 
+        wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();  //click on Contact Data
     }
 
     private void submitContactData() {

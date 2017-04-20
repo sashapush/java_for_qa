@@ -1,4 +1,4 @@
-package by.mmjava.addressbook;
+package by.mmjava.addressbook.model;
 
 public class ContactData {
     private final String firstname;
