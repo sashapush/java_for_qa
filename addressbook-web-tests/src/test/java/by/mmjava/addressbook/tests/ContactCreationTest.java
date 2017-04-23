@@ -1,5 +1,6 @@
 package by.mmjava.addressbook.tests;
 
+import by.mmjava.addressbook.appmanager.ApplicationManager;
 import by.mmjava.addressbook.model.ContactData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -10,15 +11,16 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 
-public class ContactCreationTest {
+public class ContactCreationTest extends ApplicationManager{
     FirefoxDriver wd;
-    
-    @BeforeMethod
-    public void setUp() throws Exception {
-        wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    public static boolean isAlertPresent(FirefoxDriver wd) {
+        try {
+            wd.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
     }
-    
     @Test
     public void testContactCreation() {
         login();
@@ -30,15 +32,26 @@ public class ContactCreationTest {
         wd.findElement(By.xpath("//tr[@class='odd']/td[7]/a/img")).click();
     }
 
-    private void viewCreatedContactData() {
+    protected void login() {
+        wd.get("http://localhost/addressbook/");
+        wd.findElement(By.name("user")).click();
+        wd.findElement(By.name("user")).clear();
+        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("pass")).click();
+        wd.findElement(By.name("pass")).clear();
+        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    }
+
+    public void viewCreatedContactData() {
         wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();  //click on Contact Data
     }
 
-    private void submitContactData() {
+    public void submitContactData() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    private void addContactData(ContactData contactData) {
+    public void addContactData(ContactData contactData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
@@ -173,32 +186,7 @@ public class ContactCreationTest {
         wd.findElement(By.name("notes")).sendKeys(contactData.getSecondaryNotes());
     }
 
-    private void gotoAddNewContact() {
+    public void gotoAddNewContact() {
         wd.findElement(By.linkText("add new")).click();
-    }
-
-    private void login() {
-        wd.get("http://localhost/addressbook/");
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("admin");
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys("secret");
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        wd.quit();
-    }
-    
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
     }
 }
