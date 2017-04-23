@@ -7,16 +7,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * Created by User on 4/23/2017.
  */
-public class ContactHelper extends HelperBase
-{
+public class ContactHelper extends HelperBase{
     public ContactHelper(FirefoxDriver wd) {
         super(wd);
     }
-
     public void viewCreatedContactData() {
         wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();  //click on Contact Data
     }
-
     public void submitContactData() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
@@ -153,9 +150,5 @@ public class ContactHelper extends HelperBase
         wd.findElement(By.name("notes")).click();
         wd.findElement(By.name("notes")).clear();
         wd.findElement(By.name("notes")).sendKeys(contactData.getSecondaryNotes());
-    }
-
-    public void gotoAddNewContact() {
-        wd.findElement(By.linkText("add new")).click();
     }
 }

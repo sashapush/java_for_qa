@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Created by User on 4/20/2017.
  */
 public class ApplicationManager {
-    FirefoxDriver wd;
+       FirefoxDriver wd;
     private ContactHelper contactHelper;
     private SessionHelper sessionHelper;
     private  NavigationHelper navigationHelper;
@@ -43,5 +43,4 @@ public class ApplicationManager {
     }
 
     public ContactHelper getContactHelper() {       return contactHelper;    }
-
 }
