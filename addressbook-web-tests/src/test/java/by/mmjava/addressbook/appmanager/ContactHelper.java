@@ -22,6 +22,8 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"),contactData.getMiddlename());
         type(By.name("lastname"),contactData.getLastname());
         type(By.name("nickname"),contactData.getNickname());
+        //click(By.name("photo"));
+        //click(By.xpath("//form[@id='LoginForm']/input[3]"));
         type(By.name("title"),contactData.getTitle());
         type(By.name("company"),contactData.getCompanyName());
         type(By.name("address"),contactData.getAddress1());
@@ -96,7 +98,7 @@ public class ContactHelper extends HelperBase{
             click(By.xpath("//div[@id='content']/form/select[4]//option[7]"));
         }
         type(By.name("ayear"),contactData.getAnniversaryYear());
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[1]")).isSelected()) {
+        /*if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[1]")).isSelected()) {
             click(By.xpath("//div[@id='content']/form/select[5]//option[1]"));
         }
         if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
@@ -104,9 +106,25 @@ public class ContactHelper extends HelperBase{
         }
         if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
             click(By.xpath("//div[@id='content']/form/select[5]//option[2]"));
-        }
+        }*/
         type(By.name("address2"),contactData.getSecondaryAddress());
         type(By.name("phone2"),contactData.getSecondaryPhone());
         type(By.name("notes"),contactData.getSecondaryNotes());
+    }
+    public void selectContact ()
+    {
+        click(By.xpath("id('4')"));
+    }
+    public void clickEditContact()
+    {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[5]/td[8]/a/img"));
+    }
+    public void submitUpdatedContactData()
+    {
+        click(By.name("update"));
+    }
+
+    public void deleteContact() {
+        click(By.xpath("//div[@id='content']/form[2]/input[2]"));
     }
 }
