@@ -2,13 +2,14 @@ package by.mmjava.addressbook.appmanager;
 
 import by.mmjava.addressbook.model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by User on 4/23/2017.
  */
 public class ContactHelper extends HelperBase{
-    public ContactHelper(FirefoxDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
     public void viewCreatedContactData() {
