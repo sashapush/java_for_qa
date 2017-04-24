@@ -1,3 +1,5 @@
+package by.mmjava.sandbox;
+
 import by.mmjava.sandbox.Point;
 import org.testng.annotations.Test;
 import org.testng.Assert;
