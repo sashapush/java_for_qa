@@ -114,11 +114,11 @@ public class ContactHelper extends HelperBase{
     }
     public void selectContact ()
     {
-        click(By.xpath("id('4')"));
+        click(By.xpath("//table[@id='maintable']/tbody/tr[6]/td/input"));
     }
     public void clickEditContact()
     {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[5]/td[8]/a/img"));
+        click(By.xpath("//table[@id='maintable']/tbody/tr[6]/td[8]/a/img"));
     }
     public void submitUpdatedContactData()
     {
