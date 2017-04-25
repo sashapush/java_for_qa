@@ -2,8 +2,11 @@ package by.mmjava.addressbook.appmanager;
 
 import by.mmjava.addressbook.model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 /**
  * Created by User on 4/23/2017.
@@ -18,7 +21,7 @@ public class ContactHelper extends HelperBase{
     public void submitContactData() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
-    public void addContactData(ContactData contactData) {
+    public void addContactData(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getFirstname());
         type(By.name("middlename"),contactData.getMiddlename());
         type(By.name("lastname"),contactData.getLastname());
@@ -98,8 +101,11 @@ public class ContactHelper extends HelperBase{
         if (!wd.findElement(By.xpath("//div[@id='content']/form/select[4]//option[7]")).isSelected()) {
             click(By.xpath("//div[@id='content']/form/select[4]//option[7]"));
         }
-        type(By.name("ayear"),contactData.getAnniversaryYear());
-        /*if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[1]")).isSelected()) {
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+                    /*if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[1]")).isSelected()) {
             click(By.xpath("//div[@id='content']/form/select[5]//option[1]"));
         }
         if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
@@ -108,10 +114,14 @@ public class ContactHelper extends HelperBase{
         if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
             click(By.xpath("//div[@id='content']/form/select[5]//option[2]"));
         }*/
+        }
+        type(By.name("ayear"),contactData.getAnniversaryYear());
         type(By.name("address2"),contactData.getSecondaryAddress());
         type(By.name("phone2"),contactData.getSecondaryPhone());
         type(By.name("notes"),contactData.getSecondaryNotes());
+
     }
+
     public void selectContact ()
     {
         click(By.xpath("//table[@id='maintable']/tbody/tr[6]/td/input"));
