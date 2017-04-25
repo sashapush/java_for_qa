@@ -23,9 +23,13 @@ public class HelperBase {
         click(By.cssSelector("body"));
         click(locator);
         if (text!=null){
-            wd.findElement(locator).clear();
-            wd.findElement(locator).sendKeys(text);
-        } }
+            String existingText=wd.findElement(locator).getAttribute("value");
+            if (! text.equals(existingText)){ //если неверно, что текст совпадает с уже существуюшим то..
+                wd.findElement(locator).clear();
+                wd.findElement(locator).sendKeys(text);
+            }
+        }
+    }
 
     public  boolean isAlertPresent() {
         try {
