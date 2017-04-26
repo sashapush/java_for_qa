@@ -173,7 +173,7 @@ public class ContactCreationTest {
     }
 
     private void gotoAddNewContact() {
-        wd.findElement(By.linkText("ADD_NEW")).click();
+        wd.findElement(By.linkText("add new")).click();
     }
 
     private void login() {

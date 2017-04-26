@@ -75,7 +75,7 @@ public class GroupCreationTests {
         wd.findElement(By.cssSelector("html")).click();
         wd.findElement(By.cssSelector("body")).click();
         wd.findElement(By.cssSelector("body")).click();
-        wd.findElement(By.linkText("GROUPS")).click();
+        wd.findElement(By.linkText("groups")).click();
     }
 
     @AfterMethod
