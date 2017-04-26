@@ -13,13 +13,22 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void gotoGroupsPage() {
-          click(By.linkText("groups"));
+        if (isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.name("new")) )  //проверяем наличие тэга h1, + ищем элемент с тэгом h1 и текстом "Group" + ищем наличие кнопки
+        {return;}
+        click(By.linkText("groups"));
     }
+
 
     public void gotoAddNewContact() {
         click(By.linkText("add new"));
     }
     public void gotoHome () {
-click(By.linkText("home"));
+        if (isElementPresent(By.id("maintable"))){
+            return;
+        }
+        click(By.linkText("home"));
     }
+
 }

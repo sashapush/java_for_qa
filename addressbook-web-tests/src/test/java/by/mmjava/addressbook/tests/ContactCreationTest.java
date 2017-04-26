@@ -14,6 +14,7 @@ public class ContactCreationTest extends TestBase{
         app.getContactHelper().addContactData(new ContactData("alex", "middle", "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1","secondary address", "secondary home", "secondary notes"),true);
         app.getContactHelper().submitContactData();
         app.getContactHelper().viewCreatedContactData();
+        
         }
 
 }
