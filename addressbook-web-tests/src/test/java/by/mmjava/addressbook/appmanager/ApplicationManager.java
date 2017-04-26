@@ -33,7 +33,7 @@ public class ApplicationManager {
         }else if (Objects.equals(browser, BrowserType.IE)){
             wd = new InternetExplorerDriver();
         }
-        //wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS); //ф.е. проверка отсутствия элемента - таймаут; 
+        //wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS); //ф.е. проверка отсутствия элемента - таймаут;
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
