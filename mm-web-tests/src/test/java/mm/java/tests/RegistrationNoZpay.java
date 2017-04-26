@@ -1,3 +1,5 @@
+package mm.java.tests;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -23,6 +25,11 @@ public class RegistrationNoZpay {
     
     @Test
     public void RegistrationNoZpay() {
+        // to do http authorisation
+        // 2) dual-layer test framework
+        // 3) delegation + extension
+        // 4) extract methods - type(),
+        // 5) add locators
         wd.get("https://qa-delivery-pl-master.moneyman.ru/secure/registration");
         wd.findElement(By.cssSelector("div.form__body.form__body_type_center")).click();
         wd.findElement(By.id("phone")).click();
