@@ -41,7 +41,7 @@ public class RegistrationNoZpay {
         wd.findElement(By.id("firstName")).sendKeys("sas");
         wd.findElement(By.id("lastName")).click();
         wd.findElement(By.id("lastName")).clear();
-        wd.findElement(By.id("lastName")).sendKeys("sas");
+        wd.findElement(By.id("lastName")).sendKeys("sasa");
         wd.findElement(By.id("pesel")).click();
         wd.findElement(By.id("pesel")).clear();
         wd.findElement(By.id("pesel")).sendKeys("1111");
