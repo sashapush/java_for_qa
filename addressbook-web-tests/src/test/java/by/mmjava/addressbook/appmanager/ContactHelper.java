@@ -16,9 +16,15 @@ public class ContactHelper extends HelperBase{
         super(wd);
     }
     public void viewCreatedContactData() {
-        click(By.xpath("//div/div[4]/div/i/a[2]"));  //click on Contact Data
-    }
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        else {
+            click(By.xpath("//div/div[4]/div/i/a[2]"));  //click on Contact Data
+        }
+        }
     public void submitContactData() {
+
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
     public void addContactData(ContactData contactData, boolean creation) {
