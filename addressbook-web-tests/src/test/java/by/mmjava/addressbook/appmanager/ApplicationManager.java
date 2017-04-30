@@ -46,9 +46,6 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public void deleteSelectedGroups() {
-        wd.findElement(By.xpath("//div[@id='content']/form/input[5]")).click();
-    }
 
     public GroupHelper getGroupHelper() {
         return groupHelper;

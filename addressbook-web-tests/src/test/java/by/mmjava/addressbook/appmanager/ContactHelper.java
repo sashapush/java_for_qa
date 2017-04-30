@@ -130,11 +130,11 @@ public class ContactHelper extends HelperBase{
 
     public void selectContact ()
     {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[6]/td/input"));
+        click(By.name("selected[]"));
     }
     public void clickEditContact()
     {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[6]/td[8]/a/img"));
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
     public void submitUpdatedContactData()
     {
@@ -143,5 +143,19 @@ public class ContactHelper extends HelperBase{
 
     public void deleteContact() {
         click(By.xpath("//div[@id='content']/form[2]/input[2]"));
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+    public void contactCreation() {
+        gotoAddNewContact();
+        addContactData(new ContactData("alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1","secondary address", "secondary home", "secondary notes"),true);
+        //group can't be null?;
+        submitContactData();
+    }
+
+    private void gotoAddNewContact() {
+        click(By.xpath("//a[contains(text(),'add new')]"));
     }
 }

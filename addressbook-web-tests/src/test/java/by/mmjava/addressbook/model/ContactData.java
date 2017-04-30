@@ -19,7 +19,7 @@ public class ContactData {
     private final String address;
     private final String birthYear;
     private final String anniversaryYear;
-    private String group;
+    private final String group;
     private final String secondaryAddress;
     private final String secondaryPhone;
     private final String secondaryNotes;

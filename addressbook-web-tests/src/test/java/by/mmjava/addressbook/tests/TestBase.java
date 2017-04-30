@@ -2,6 +2,7 @@ package by.mmjava.addressbook.tests;
 
 
 import by.mmjava.addressbook.appmanager.ApplicationManager;
+import by.mmjava.addressbook.model.ContactData;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.openqa.selenium.remote.BrowserType;
@@ -22,6 +23,7 @@ public class TestBase {
     public void tearDown() {
         app.stop();
     }
+
 
 }
 

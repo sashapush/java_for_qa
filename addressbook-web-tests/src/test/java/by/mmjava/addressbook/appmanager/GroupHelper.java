@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 public class GroupHelper extends HelperBase {
 
+
     public GroupHelper(WebDriver wd) {
         super(wd);
     }
@@ -35,8 +36,8 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroup() {
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/span[5]/input")).isSelected()) {
-            click(By.xpath("//div[@id='content']/form/span[5]/input"));
+        if (! isElementPresent((By.name("selected[]")))) {
+            click(By.name("selected[]"));
         }
     }
 
@@ -46,5 +47,21 @@ public class GroupHelper extends HelperBase {
 
     public void submitGroupUpdate() {
         click(By.name("update"));
+    }
+
+    public void createGroup(GroupData group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returntoGroupPage();
+
+    }
+    public void deleteSelectedGroups() {
+        click(By.name("selected[]"));
+        click(By.name("delete"));
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
