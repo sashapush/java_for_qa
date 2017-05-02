@@ -10,8 +10,8 @@ import java.util.List;
 public class Collections {
     public static void main(String[] args) {
         String[] lang = {"java","c#","python","php"};
-        List  languages = Arrays.asList("java","c#","python","php"); //new ArrayList<String>(); // List - interface; ArrayList - class which implements this interface
-                for (Object l:languages){
+        List <String> languages = Arrays.asList("java","c#","python","php"); //new ArrayList<String>(); // List - interface; ArrayList - class which implements this interface
+                for (String l:languages){
             System.out.println("i want to learn " + l);
         }
 
