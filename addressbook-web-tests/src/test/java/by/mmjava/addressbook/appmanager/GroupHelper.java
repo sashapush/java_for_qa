@@ -35,10 +35,11 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void selectGroup() {
-        if (! isElementPresent((By.name("selected[]")))) {
+    public void selectGroup(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
+        /*if (! isElementPresent((By.name("selected[]")))) {
             click(By.name("selected[]"));
-        }
+        }*/ // commented because 2 groups are selected if uncommented
     }
 
     public void initGroupModification() {
@@ -57,11 +58,15 @@ public class GroupHelper extends HelperBase {
 
     }
     public void deleteSelectedGroups() {
-        click(By.name("selected[]"));
+        //click(By.name("selected[]")); prevent selecting 2 elements
         click(By.name("delete"));
     }
 
     public boolean isThereAGroup() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getGroupCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
