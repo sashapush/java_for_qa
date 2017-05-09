@@ -170,9 +170,10 @@ public class ContactHelper extends HelperBase {
         List<WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
         {
-            String name = element.getText();
+            String name = element.findElement(By.xpath("//../td[3]")).getText();
+            String second_name = element.findElement(By.xpath("//../td[2]")).getText();
             String id = element.findElement(By.tagName("input")).getAttribute("entry");
-            ContactData contact = new ContactData(id,name,null,null,null,null,null,null,null,null,null,null,null,null,
+            ContactData contact = new ContactData(id,name,null,second_name,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null,null);
             contacts.add(contact);
         }
