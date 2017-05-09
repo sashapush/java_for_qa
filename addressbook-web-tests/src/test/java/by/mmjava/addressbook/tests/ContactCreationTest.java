@@ -9,6 +9,7 @@ public class ContactCreationTest extends TestBase{
 
     @Test
     public void testContactCreation() {
+        for (int i=0;i<15;i++) {
         app.getNavigationHelper().gotoAddNewContact();
         //to do - send photo
         app.getContactHelper().addContactData(new ContactData("alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1","secondary address", "secondary home", "secondary notes"),true);
@@ -19,4 +20,4 @@ public class ContactCreationTest extends TestBase{
         //app.getNavigationHelper().gotoHome(); identical to the one above
         }
 
-}
+}}
