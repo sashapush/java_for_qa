@@ -1,6 +1,7 @@
 package by.mmjava.addressbook.model;
 
 public class ContactData {
+    private final String id;
     private final String firstname;
     private final String middlename;
     private final String lastname;
@@ -24,7 +25,15 @@ public class ContactData {
     private final String secondaryPhone;
     private final String secondaryNotes;
 
-    public ContactData(String firstname, String middlename, String lastname, String nickname, String title, String companyName, String address1, String homeNumber, String mobileNumber, String workNumber, String fax, String email, String email2, String email3, String homepage, String address, String birthYear, String anniversaryYear, String group,String secondaryAddress, String secondaryPhone, String secondaryNotes) {
+
+    public String getId() {
+        return id;
+    }
+
+
+    public ContactData(String id, String firstname, String middlename, String lastname, String nickname, String title, String companyName, String address1, String homeNumber, String mobileNumber, String workNumber, String fax, String email, String email2, String email3, String homepage, String address, String birthYear, String anniversaryYear, String group, String secondaryAddress, String secondaryPhone, String secondaryNotes) {
+
+        this.id=id;
 
         this.firstname = firstname;
         this.middlename = middlename;
@@ -49,7 +58,31 @@ public class ContactData {
         this.secondaryPhone = secondaryPhone;
         this.secondaryNotes = secondaryNotes;
     }
-
+    public ContactData(String firstname, String middlename, String lastname, String nickname, String title, String companyName, String address1, String homeNumber, String mobileNumber, String workNumber, String fax, String email, String email2, String email3, String homepage, String address, String birthYear, String anniversaryYear, String group, String secondaryAddress, String secondaryPhone, String secondaryNotes) {
+        this.id=null;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.nickname = nickname;
+        this.title = title;
+        this.companyName = companyName;
+        this.address1 = address1;
+        this.homeNumber = homeNumber;
+        this.mobileNumber = mobileNumber;
+        this.workNumber = workNumber;
+        this.fax = fax;
+        this.email = email;
+        this.email2 = email2;
+        this.email3 = email3;
+        this.homepage = homepage;
+        this.address = address;
+        this.birthYear = birthYear;
+        this.anniversaryYear = anniversaryYear;
+        this.group = group;
+        this.secondaryAddress = secondaryAddress;
+        this.secondaryPhone = secondaryPhone;
+        this.secondaryNotes = secondaryNotes;
+    }
     public String getFirstname() {
         return firstname;
     }
@@ -136,5 +169,31 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
+    }
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id='" + id + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 }

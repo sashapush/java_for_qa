@@ -135,12 +135,13 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact(int index) {
-        click(By.name("selected[]"));
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void clickEditContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-    }
+    public void clickEditContact(int index) {
+        wd.findElements(By.xpath("//../td[8]/a/img")).get(index).click(); //click in the 8th column of "index" row;
+        //wd.findElements(By.cssSelector("td:nth-child(8) > a")).get(index).click(); same
+        }
 
     public void submitUpdatedContactData() {
         click(By.name("update"));
@@ -156,11 +157,10 @@ public class ContactHelper extends HelperBase {
 
     public void contactCreation() {
         gotoAddNewContact();
-        addContactData(new ContactData("alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1", "secondary address", "secondary home", "secondary notes"), true);
+        addContactData(new ContactData(null,"alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1", "secondary address", "secondary home", "secondary notes"), true);
         //group can't be null?;
         submitContactData();
     }
-
     private void gotoAddNewContact() {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
@@ -171,7 +171,8 @@ public class ContactHelper extends HelperBase {
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
         {
             String name = element.getText();
-            ContactData contact = new ContactData(name,null,null,null,null,null,null,null,null,null,null,null,null,
+            String id = element.findElement(By.tagName("input")).getAttribute("entry");
+            ContactData contact = new ContactData(id,name,null,null,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null,null);
             contacts.add(contact);
         }
