@@ -157,7 +157,7 @@ public class ContactHelper extends HelperBase {
 
     public void contactCreation() {
         gotoAddNewContact();
-        addContactData(new ContactData(null,"alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1", "secondary address", "secondary home", "secondary notes"), true);
+        addContactData(new ContactData(0,"alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1", "secondary address", "secondary home", "secondary notes"), true);
         //group can't be null?;
         submitContactData();
     }
@@ -172,7 +172,8 @@ public class ContactHelper extends HelperBase {
         {
             String name = element.findElement(By.xpath("//../td[3]")).getText();
             String second_name = element.findElement(By.xpath("//../td[2]")).getText();
-            String id = element.findElement(By.tagName("input")).getAttribute("entry");
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+//            int id =  Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             ContactData contact = new ContactData(id,name,null,second_name,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null,null);
             contacts.add(contact);
