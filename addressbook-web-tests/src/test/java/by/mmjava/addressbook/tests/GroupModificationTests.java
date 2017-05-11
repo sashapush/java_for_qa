@@ -4,9 +4,7 @@ import by.mmjava.addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -26,7 +24,7 @@ public class GroupModificationTests extends TestBase{
         GroupData group = new GroupData(before.get((before.size()-1)).getId(),"test1", "88", "77");
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupUpdate();
-        app.getGroupHelper().returntoGroupPage();
+        app.getGroupHelper().returnToGroupPage();
         List<GroupData> after  = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(),before.size());
 //contact comparison after edition

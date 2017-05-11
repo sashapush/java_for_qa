@@ -4,7 +4,6 @@ import by.mmjava.addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class GroupHelper extends HelperBase {
         super(wd);
     }
 
-    public void returntoGroupPage() {
+    public void returnToGroupPage() {
         //click(By.cssSelector("html")); for Chromiun compatibility
         click(By.linkText("group page"));
     }
@@ -58,7 +57,7 @@ public class GroupHelper extends HelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
-        returntoGroupPage();
+        returnToGroupPage();
 
     }
     public void deleteSelectedGroups() {

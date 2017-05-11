@@ -58,8 +58,10 @@ public class ContactData {
         this.secondaryPhone = secondaryPhone;
         this.secondaryNotes = secondaryNotes;
     }
+
+
     public ContactData(String firstname, String middlename, String lastname, String nickname, String title, String companyName, String address1, String homeNumber, String mobileNumber, String workNumber, String fax, String email, String email2, String email3, String homepage, String address, String birthYear, String anniversaryYear, String group, String secondaryAddress, String secondaryPhone, String secondaryNotes) {
-        this.id=0;
+        this.id=Integer.MAX_VALUE;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -171,13 +173,9 @@ public class ContactData {
         return group;
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id='" + id + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -187,17 +185,23 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        int result = firstname != null ? firstname.hashCode() : 0;
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
+    }
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id='" + id + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 
 }
