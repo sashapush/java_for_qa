@@ -170,7 +170,7 @@ public class ContactHelper extends HelperBase {
         List<WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
         {
-            List<WebElement> cells = wd.findElements(By.tagName("td"));
+            List<WebElement> cells = element.findElements(By.tagName("td"));
             String name = cells.get(2).getText();
             String second_name = cells.get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
