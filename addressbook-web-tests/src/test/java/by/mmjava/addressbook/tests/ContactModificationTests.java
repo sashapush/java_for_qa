@@ -12,7 +12,7 @@ import java.util.List;
  * Created by User on 4/24/2017.
  */
 public class ContactModificationTests extends TestBase {
-    @Test
+    @Test (enabled = false)
     public void testContactModification()
     {
         app.getNavigationHelper().gotoHome();
