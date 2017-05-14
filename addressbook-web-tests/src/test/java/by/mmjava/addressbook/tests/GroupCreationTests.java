@@ -14,11 +14,10 @@ public class GroupCreationTests extends TestBase {
         //for (int i=0;i<15;i++) {
         app.goTo().GroupsPage();
         List<GroupData> before = app.group().list();
-        GroupData group = new GroupData("test3", null, null);
+        GroupData group = new GroupData().withName("test2");
         app.group().create(group);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() + 1);
-        //}
         /*int max=0;
         for (GroupData g : after){
             if (g.getId()>max) {

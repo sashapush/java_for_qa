@@ -14,15 +14,11 @@ public class GroupDeletionTests extends TestBase {
     {
         app.goTo().GroupsPage();
         if ( app.group().list().size()==0){
-            app.group().create(new GroupData("pre", "condition",null));
+            app.group().create(new GroupData().withName("pre").withHeader("condition"));
         }
     }
     @Test
     public void testGroupDeletion() {
-        app.goTo().GroupsPage();
-        if (!app.group().isThereAGroup()){
-            app.group().create(new GroupData("test1", "header",null));
-        }
         List<GroupData> before = app.group().list();
         int index = before.size()-1;
         app.group().delete(index);
