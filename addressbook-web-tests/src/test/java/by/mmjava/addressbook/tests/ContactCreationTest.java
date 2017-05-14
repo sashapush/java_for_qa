@@ -4,10 +4,7 @@ import by.mmjava.addressbook.model.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import org.openqa.selenium.*;
-
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTest extends TestBase{
@@ -15,7 +12,7 @@ public class ContactCreationTest extends TestBase{
     @Test (enabled = false)
     public void testContactCreation() {
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().gotoAddNewContact();
+        app.goTo().AddNewContact();
         //to do - send photo
         ContactData contact = new ContactData("new", null, "mew", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1","secondary address", "secondary home", "secondary notes");
         app.getContactHelper().addContactData(contact,true);

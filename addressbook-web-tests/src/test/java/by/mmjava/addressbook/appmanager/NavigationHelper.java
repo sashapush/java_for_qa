@@ -12,7 +12,7 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    public void gotoGroupsPage() {
+    public void GroupsPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new")) )  //проверяем наличие тэга h1, + ищем элемент с тэгом h1 и текстом "Group" + ищем наличие кнопки
@@ -21,10 +21,10 @@ public class NavigationHelper extends HelperBase {
     }
 
 
-    public void gotoAddNewContact() {
+    public void AddNewContact() {
         click(By.linkText("add new"));
     }
-    public void gotoHome () {
+    public void Home() {
         if (isElementPresent(By.id("maintable"))){
             return;
         }

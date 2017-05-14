@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -15,18 +14,18 @@ public class ContactModificationTests extends TestBase {
     @Test (enabled = false)
     public void testContactModification()
     {
-        app.getNavigationHelper().gotoHome();
+        app.goTo().Home();
         if (!app.getContactHelper().isThereAContact()){
             app.getContactHelper().contactCreation();
         }
-        app.getNavigationHelper().gotoHome();
+        app.goTo().Home();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(before.size()-1);
         app.getContactHelper().clickEditContact(before.size()-1);
         ContactData contact = new ContactData(before.get(before.size()-1).getId(),"test","modified","alex",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
         app.getContactHelper().addContactData(contact,false);
         app.getContactHelper().submitUpdatedContactData();
-        app.getNavigationHelper().gotoHome();
+        app.goTo().Home();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(),before.size());
         before.remove(before.size()-1);
