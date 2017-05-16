@@ -24,7 +24,7 @@ public class ContactHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         } else {
-            click(By.xpath("//div/div[4]/div/i/a[2]"));  //click on Contact Data
+            click(By.xpath("//div/div[4]/div/i/a[2]"));  //click on Contact Data link
         }
     }
 
@@ -32,7 +32,12 @@ public class ContactHelper extends HelperBase {
 
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
-
+    public void Home() {
+        if (isElementPresent(By.id("maintable"))){
+            return;
+        }
+        click(By.linkText("home"));
+    }
     public void addContactData(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("middlename"), contactData.getMiddlename());
@@ -155,11 +160,21 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void contactCreation() {
+    public void contactCreation(ContactData contact) {
         gotoAddNewContact();
-        addContactData(new ContactData(0,"alex", null, "last", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1", "secondary address", "secondary home", "secondary notes"), true);
+        addContactData(contact,true);
         //group can't be null?;
         submitContactData();
+        viewCreatedContactData();
+    }
+
+
+    public void modifyContact(int index, ContactData contact) {
+        selectContact(index);
+        clickEditContact(index);
+        addContactData(contact,false);
+        submitUpdatedContactData();
+        viewCreatedContactData();
     }
     private void gotoAddNewContact() {
         click(By.xpath("//a[contains(text(),'add new')]"));
@@ -180,5 +195,7 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+
 }
 

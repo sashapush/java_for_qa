@@ -9,20 +9,18 @@ import java.util.List;
 
 public class ContactCreationTest extends TestBase{
 
-    @Test (enabled = false)
+    @Test //(enabled = false)
     public void testContactCreation() {
         List<ContactData> before = app.getContactHelper().getContactList();
         app.goTo().AddNewContact();
         //to do - send photo
-        ContactData contact = new ContactData("new", null, "mew", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test1","secondary address", "secondary home", "secondary notes");
+        ContactData contact = new ContactData("new", null, "mew", "nick", "title", "company name", "address 1", "12345", "67894", "54577", "11", "tests@tests.com", "test2@tests.com", "test3@tests.com", "http://tests.com", "address 1\naddress 2", "1992", "2222", "test22","secondary address", "secondary home", "secondary notes");
         app.getContactHelper().addContactData(contact,true);
-        //app.getContactHelper().addContactData(new ContactData("alex","alex","alex",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null),true);
         app.getContactHelper().submitContactData();
         app.getContactHelper().viewCreatedContactData();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
         before.add(contact);
-        //Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
         Comparator<? super  ContactData> byId = Comparator.comparingInt(ContactData::getId);
         before.sort(byId);
         after.sort(byId);
