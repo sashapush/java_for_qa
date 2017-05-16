@@ -24,7 +24,7 @@ public class ContactHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         } else {
-            click(By.xpath("//div/div[4]/div/i/a[2]"));  //click on Contact Data link
+            click(By.linkText("home"));  //click on Contact Data link
         }
     }
 
@@ -160,7 +160,7 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void contactCreation(ContactData contact) {
+    public void create(ContactData contact) {
         gotoAddNewContact();
         addContactData(contact,true);
         //group can't be null?;
@@ -168,8 +168,13 @@ public class ContactHelper extends HelperBase {
         viewCreatedContactData();
     }
 
-
-    public void modifyContact(int index, ContactData contact) {
+    public void delete(int index) {
+        selectContact(index);
+        clickEditContact(index);
+        deleteContact();
+        viewCreatedContactData();
+    }
+    public void modify(int index, ContactData contact) {
         selectContact(index);
         clickEditContact(index);
         addContactData(contact,false);
@@ -180,7 +185,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();  //создание списка с именем контактов
         List<WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
