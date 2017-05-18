@@ -1,6 +1,7 @@
 package by.mmjava.addressbook.appmanager;
 
 import by.mmjava.addressbook.model.ContactData;
+import by.mmjava.addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -184,8 +185,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();  //создание списка с именем контактов
+    public Contacts all() {
+        Contacts contacts = new Contacts();  //создание списка с именем контактов
         List <WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
         {

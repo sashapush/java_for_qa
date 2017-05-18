@@ -1,6 +1,9 @@
 package by.mmjava.addressbook.tests;
 
 import by.mmjava.addressbook.model.GroupData;
+import by.mmjava.addressbook.model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,19 +28,15 @@ public class GroupModificationTests extends TestBase{
     }
     @Test
     public void testGroupModification() {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData modifiedGroup = before.iterator().next();  //выбор из множества случайного элемента
         GroupData group = new GroupData()
                 .withId(modifiedGroup.getId()).withName("new").withHeader("group").withFooter("footer");
         app.group().modify(group);
-        Set<GroupData> after  = app.group().all();
+        Groups after  = app.group().all();
         Assert.assertEquals(after.size(),before.size());
-//contact comparison after edition
-        before.remove(modifiedGroup);
-
-        before.add(group);
-        //сортировка списка
-       Assert.assertEquals(before,after);
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withModified(modifiedGroup,group)));
+        //MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 
 
