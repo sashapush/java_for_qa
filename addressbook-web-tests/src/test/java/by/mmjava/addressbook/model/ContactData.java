@@ -103,7 +103,10 @@ public class ContactData {
         this.anniversaryYear = anniversaryYear; return this;
     }
 
+
+
     public ContactData withGroup(String group) {
+
         this.group = group; return this;
     }
 
@@ -217,7 +220,6 @@ public class ContactData {
     public void setId(int id) {
         this.id = id;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -237,7 +239,6 @@ public class ContactData {
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
-
     @Override
     public String toString() {
         return "ContactData{" +

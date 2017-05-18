@@ -2,15 +2,14 @@ package by.mmjava.addressbook.appmanager;
 
 import by.mmjava.addressbook.model.ContactData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by User on 4/23/2017.
@@ -139,14 +138,13 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='"+ id+ "']")).click();  //тэг инпут, имя value
     }
 
-    public void clickEditContact(int index) {
-        wd.findElements(By.xpath("//../td[8]/a/img")).get(index).click(); //click in the 8th column of "index" row;
-        //wd.findElements(By.cssSelector("td:nth-child(8) > a")).get(index).click(); same
-    }
+    public void clickEditContact(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click(); //think of similar ways of selector
+            }
 
     public void submitUpdatedContactData() {
         click(By.name("update"));
@@ -168,15 +166,16 @@ public class ContactHelper extends HelperBase {
         viewCreatedContactData();
     }
 
-    public void delete(int index) {
-        selectContact(index);
-        clickEditContact(index);
+
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        clickEditContact(contact.getId());
         deleteContact();
         viewCreatedContactData();
     }
-    public void modify(int index, ContactData contact) {
-        selectContact(index);
-        clickEditContact(index);
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
+        clickEditContact(contact.getId());
         addContactData(contact,false);
         submitUpdatedContactData();
         viewCreatedContactData();
@@ -185,9 +184,9 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();  //создание списка с именем контактов
-        List<WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();  //создание списка с именем контактов
+        List <WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
         {
             List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -198,6 +197,7 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
 
 
 }
