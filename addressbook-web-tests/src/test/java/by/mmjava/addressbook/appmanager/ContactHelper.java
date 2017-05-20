@@ -200,10 +200,9 @@ public class ContactHelper extends HelperBase {
             List<WebElement> cells = element.findElements(By.tagName("td"));
             String name = cells.get(2).getText();
             String second_name = cells.get(1).getText();
-            String[] phones = cells.get(5).getText().split("\n");
+            String allPhones = cells.get(5).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(second_name).withHomeNumber(phones[0]).
-                    withMobileNumber(phones[1]).withWorkNumber(phones[2]));
+            contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(second_name).withAllPhones(allPhones));
         }
         return contacts;
     }
@@ -215,9 +214,10 @@ public class ContactHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String homephone2 = wd.findElement(By.name("phone2")).getAttribute("value");
         wd.navigate().back();
 return  new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
-        withHomeNumber(home).withMobileNumber(mobile).withWorkNumber(work);}
+        withHomeNumber(home).withMobileNumber(mobile).withWorkNumber(work).withSecondaryPhone(homephone2);}
 
 
     public void initContactModificationById (int id)
