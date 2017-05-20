@@ -140,12 +140,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContactById(int id) {
-        wd.findElement(By.cssSelector("input[value='"+ id+ "']")).click();  //тэг инпут, имя value
+        wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();  //тэг инпут, имя value
     }
 
     public void clickEditContact(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click(); //think of similar ways of selector
-            }
+    }
 
     public void submitUpdatedContactData() {
         click(By.name("update"));
@@ -164,6 +164,7 @@ public class ContactHelper extends HelperBase {
         addContactData(contact,true);
         //group can't be null?;
         submitContactData();
+        contactsCache = null;
         viewCreatedContactData();
     }
 
@@ -172,6 +173,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         clickEditContact(contact.getId());
         deleteContact();
+        contactsCache = null;
         viewCreatedContactData();
     }
     public void modify(ContactData contact) {
@@ -185,7 +187,12 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
 
+    public Contacts contactsCache = null;
+
     public Contacts all() {
+        if (contactsCache != null) {
+            return new Contacts(contactsCache);
+        }
         Contacts contacts = new Contacts();  //создание списка с именем контактов
         List <WebElement> elements = wd.findElements(By.name("entry")); //поиск элементов(контактов на странице)
         for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
