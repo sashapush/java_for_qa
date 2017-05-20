@@ -24,7 +24,17 @@ public class ContactData {
     private  String secondaryAddress;
     private  String secondaryPhone;
     private  String secondaryNotes;
+    private  String allPhones;
+    private  String allEmails;
 
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
 
     public String getAllPhones() {
         return allPhones;
@@ -35,7 +45,7 @@ public class ContactData {
         return this;
     }
 
-    private  String allPhones;
+
 
     public ContactData  withId(int id) {
         this.id = id;
