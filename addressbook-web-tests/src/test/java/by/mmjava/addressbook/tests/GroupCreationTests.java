@@ -28,7 +28,6 @@ public class GroupCreationTests extends TestBase {
         //поток объектов GroupData превращаем в поток идентификаторов, получаем поток целых чисел, getAsInt;
         assertThat(after, equalToObject(
                 before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
-//    }
 }
     @Test
     public void testBadGroupCreation() {
