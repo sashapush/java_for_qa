@@ -220,6 +220,7 @@ public class ContactHelper extends HelperBase {
         String work = wd.findElement(By.name("work")).getAttribute("value");
         if (work!=null) {work = "W: " + work;}
         String addresses = wd.findElement(By.name("address")).getAttribute("value");
+        if (addresses!=null) {addresses = addresses+"\n\n";}
         String email = wd.findElement(By.name("email")).getAttribute("value");
         if (email!=null) {email = email+"\n";}
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");

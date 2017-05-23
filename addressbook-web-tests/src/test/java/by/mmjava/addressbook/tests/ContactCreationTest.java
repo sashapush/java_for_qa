@@ -13,6 +13,7 @@ public class ContactCreationTest extends TestBase{
 
     @Test
     public void testContactCreation() {
+
         app.goTo().Home();
         Contacts before = app.contact().all();
         File photo = new File("src/test/resources/boobs.jpg") ;
