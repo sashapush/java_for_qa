@@ -6,6 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
+
 /**
  * Created by User on 4/23/2017.
  */
@@ -21,7 +23,7 @@ public class HelperBase {
     }
 
     protected void type(By locator, String text) {
-        click(By.cssSelector("body"));
+        //click(By.cssSelector("body"));
         click(locator);
         if (text!=null){
             String existingText=wd.findElement(locator).getAttribute("value");
@@ -31,6 +33,12 @@ public class HelperBase {
             }
         }
     }
+
+    protected void attach (By locator, File file) {
+        if (file!=null){
+          wd.findElement(locator).sendKeys(file.getAbsolutePath());
+            }
+        }
 
     public  boolean isAlertPresent() {
         try {

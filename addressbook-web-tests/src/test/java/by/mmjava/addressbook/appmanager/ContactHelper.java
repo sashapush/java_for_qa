@@ -41,8 +41,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
-        //click(By.name("photo"));
-        //click(By.xpath("//form[@id='LoginForm']/input[3]"));
+        attach(By.name("photo"),contactData.getPhoto());
         type(By.name("title"), contactData.getTitle());
         type(By.name("company"), contactData.getCompanyName());
         type(By.name("address"), contactData.getAddress1());
@@ -212,17 +211,21 @@ public class ContactHelper extends HelperBase {
         String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
+        if (home!=null) {home = "H: " + home;}
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        if (mobile!=null) {mobile = "M: " + mobile;}
         String work = wd.findElement(By.name("work")).getAttribute("value");
-        String homephone2 = wd.findElement(By.name("phone2")).getAttribute("value");
+        if (work!=null) {work = "W: " + work;}
         String addresses = wd.findElement(By.name("address")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-        String allContactData = firstname+middlename+lastname+addresses+home+mobile+work+homephone2+email+email2+email3;
+        String allContactData = firstname+" "+middlename+" "+ lastname+"\n"
+                +addresses+"\n\n" +home + "\n"+mobile+ "\n"+work+ "\n\n"+email+ "\n"+ email2 + "\n"+email3;
         //String fullContactData = allContactData.replaceAll("\\s","");
                         wd.navigate().back();
-        return  new ContactData().withId(contact.getId()).withAllContactData(allContactData .replaceAll("\\s",""));}
+        return  new ContactData().withId(contact.getId()).withAllContactData(allContactData);}
+        //return  new ContactData().withId(contact.getId()).withAllContactData(allContactData .replaceAll("\\s",""));}
 
 
     public ContactData infoFromEditForm(ContactData contact) {

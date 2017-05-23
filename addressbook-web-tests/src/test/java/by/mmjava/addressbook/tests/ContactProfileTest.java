@@ -29,9 +29,9 @@ public class ContactProfileTest extends TestBase {
     public void testContactProfile() {
         app.goTo().Home();
         ContactData contact = app.contact().all().iterator().next();
-        ContactData contactInfoFromContactPage = app.contact().infoFromContactPage(contact.withId(73));
-        ContactData contactInfoFromEditForm = app.contact().gluedInfoFromEditForm(contact.withId(73));
-        assertThat(contactInfoFromEditForm.getAllContactData(), equalTo(mergeProfileData(contactInfoFromContactPage)));
+        ContactData contactInfoFromContactPage = app.contact().infoFromContactPage(contact);
+        ContactData contactInfoFromEditForm = app.contact().gluedInfoFromEditForm(contact);
+        assertThat(contactInfoFromEditForm.getAllContactData(), equalTo((contactInfoFromContactPage.getAllContactData())));
     }
 
     private String mergeProfileData(ContactData contact) {
@@ -42,7 +42,8 @@ public class ContactProfileTest extends TestBase {
     }
 
     public static String cleaned (String phone){
-        return phone.replaceAll("\\s","").replaceAll("((M:)+)","")
-                .replaceAll("((H:)+)","").replaceAll("((W:)+)","");
+        return phone.replaceAll("\\s","");
+                //.replaceAll("((M:)+)","")
+                //.replaceAll("((H:)+)","").replaceAll("((W:)+)","");
     }
 }
