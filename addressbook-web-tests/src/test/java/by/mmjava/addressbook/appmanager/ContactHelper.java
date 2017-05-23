@@ -208,8 +208,11 @@ public class ContactHelper extends HelperBase {
     public ContactData gluedInfoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        if (firstname!=null) {firstname = firstname+" ";}
         String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
+        if (middlename!=null) {middlename = middlename+" ";}
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        if (lastname!=null) {lastname = lastname+"\n";}
         String home = wd.findElement(By.name("home")).getAttribute("value");
         if (home!=null) {home = "H: " + home;}
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
@@ -218,10 +221,12 @@ public class ContactHelper extends HelperBase {
         if (work!=null) {work = "W: " + work;}
         String addresses = wd.findElement(By.name("address")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
+        if (email!=null) {email = email+"\n";}
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        if (email2!=null) {email = email2+"\n";}
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-        String allContactData = firstname+" "+middlename+" "+ lastname+"\n"
-                +addresses+"\n\n" +home + "\n"+mobile+ "\n"+work+ "\n\n"+email+ "\n"+ email2 + "\n"+email3;
+        String allContactData = firstname+middlename+ lastname
+                +addresses+home+mobile+work+email+email2 +email3;
         //String fullContactData = allContactData.replaceAll("\\s","");
                         wd.navigate().back();
         return  new ContactData().withId(contact.getId()).withAllContactData(allContactData);}
