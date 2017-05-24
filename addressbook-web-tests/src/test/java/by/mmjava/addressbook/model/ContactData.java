@@ -1,8 +1,11 @@
 package by.mmjava.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
 public class ContactData {
+    @XStreamOmitField
     private int id=Integer.MAX_VALUE;
     private  String firstname;
     private  String middlename;

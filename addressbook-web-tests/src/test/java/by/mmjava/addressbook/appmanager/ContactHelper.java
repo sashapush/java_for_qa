@@ -208,7 +208,7 @@ public class ContactHelper extends HelperBase {
     public ContactData gluedInfoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-        if (firstname!=null) {firstname = firstname+" ";}
+        if (!firstname.isEmpty()) {firstname = firstname+" ";}
         String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
         if (middlename!=null) {middlename = middlename+" ";}
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");

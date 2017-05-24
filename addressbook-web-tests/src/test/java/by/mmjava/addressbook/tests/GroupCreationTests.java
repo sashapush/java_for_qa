@@ -2,6 +2,7 @@ package by.mmjava.addressbook.tests;
 
 import by.mmjava.addressbook.model.GroupData;
 import by.mmjava.addressbook.model.Groups;
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -9,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.equalToObject;
@@ -18,16 +20,18 @@ public class GroupCreationTests extends TestBase {
 @DataProvider
 public Iterator<Object[]>  validGroups() throws IOException { // итератор массивов объектов
     List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv"))); // завернули обычный ридер вБуферед ридер
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml"))); // завернули обычный ридер вБуферед ридер
+    String xml = "";
     String line = reader.readLine();
     while (line != null){
-        String[] split = line.split(";");//обработка прочитанных строк. Деление на части
-        list.add(new Object[]{new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});     //из полученных кусочков строим массив, состоящий из одного объекта и добавляем его в список;
+        xml +=line;
         line = reader.readLine();
     }
-    return list.iterator();
-
-}
+    XStream xstream = new XStream();
+    xstream.processAnnotations(GroupData.class);
+    List<GroupData> groups = (List<GroupData>)xstream.fromXML(xml);
+    return groups.stream().map((g -> new Object[] {g} )).collect(Collectors.toList()).iterator();
+    }
     @Test(dataProvider = "validGroups" )
     public void testGroupCreation(GroupData group) {
              app.goTo().GroupsPage();
