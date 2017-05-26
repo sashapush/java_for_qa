@@ -1,0 +1,26 @@
+[
+  {
+    "firstname": "First name 0",
+    "middlename": "Middle name 0",
+    "lastname": "Last name 0",
+    "group": "new"
+  },
+  {
+    "firstname": "First name 1",
+    "middlename": "Middle name 1",
+    "lastname": "Last name 1",
+    "group": "new"
+  },
+  {
+    "firstname": "First name 2",
+    "middlename": "Middle name 2",
+    "lastname": "Last name 2",
+    "group": "new"
+  },
+  {
+    "firstname": "First name 3",
+    "middlename": "Middle name 3",
+    "lastname": "Last name 3",
+    "group": "new"
+  }
+]
