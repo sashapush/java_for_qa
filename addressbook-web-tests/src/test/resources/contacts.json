@@ -3,24 +3,36 @@
     "firstname": "First name 0",
     "middlename": "Middle name 0",
     "lastname": "Last name 0",
+    "email": "email0@test.com",
+    "birthYear": "1990",
+    "anniversaryYear": "2020",
     "group": "new"
   },
   {
     "firstname": "First name 1",
     "middlename": "Middle name 1",
     "lastname": "Last name 1",
+    "email": "email1@test.com",
+    "birthYear": "1991",
+    "anniversaryYear": "2021",
     "group": "new"
   },
   {
     "firstname": "First name 2",
     "middlename": "Middle name 2",
     "lastname": "Last name 2",
+    "email": "email2@test.com",
+    "birthYear": "1992",
+    "anniversaryYear": "2022",
     "group": "new"
   },
   {
     "firstname": "First name 3",
     "middlename": "Middle name 3",
     "lastname": "Last name 3",
+    "email": "email3@test.com",
+    "birthYear": "1993",
+    "anniversaryYear": "2023",
     "group": "new"
   }
 ]

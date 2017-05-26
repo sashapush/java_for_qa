@@ -23,12 +23,15 @@ public class ContactData {
     private  String mobileNumber;
     private  String workNumber;
     private  String fax;
+    @Expose
     private  String email;
     private  String email2;
     private  String email3;
     private  String homepage;
     private  String address;
+    @Expose
     private  String birthYear;
+    @Expose
     private  String anniversaryYear;
     @Expose
     private  String group;
