@@ -16,23 +16,5 @@
     "birthYear": "1991",
     "anniversaryYear": "2021",
     "group": "new"
-  },
-  {
-    "firstname": "First name 2",
-    "middlename": "Middle name 2",
-    "lastname": "Last name 2",
-    "email": "email2@test.com",
-    "birthYear": "1992",
-    "anniversaryYear": "2022",
-    "group": "new"
-  },
-  {
-    "firstname": "First name 3",
-    "middlename": "Middle name 3",
-    "lastname": "Last name 3",
-    "email": "email3@test.com",
-    "birthYear": "1993",
-    "anniversaryYear": "2023",
-    "group": "new"
   }
 ]

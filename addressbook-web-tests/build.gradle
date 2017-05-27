@@ -1,15 +1,38 @@
 apply plugin: "java"
 
 
-
 repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'org.testng:testng:6.11';
+    compile 'org.testng:testng:6.11'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'com.beust:jcommander:1.69'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
     compile 'com.google.code.gson:gson:2.8.0'
+}
+
+task testGroups (type: Test){
+    useTestNG{
+        suites 'src/test/resources/TestNG.xml-groups'
+    }
+    if (project.hasProperty('browser')){
+        systemProperty('browser',"${browser}") //"${browser}" - свойство сборщика
+    }
+    if (project.hasProperty('target')){
+        systemProperty('target',"${target}") //"${browser}" - свойство сборщика
+    }
+}
+
+task testContacts (type: Test){
+    useTestNG{
+        suites 'src/test/resources/TestNG.xml-contacts'
+    }
+    if (project.hasProperty('browser')){
+   systemProperty('browser',"${browser}") //"${browser}" - свойство сборщика
+}
+    if (project.hasProperty('target')){
+        systemProperty('target',"${target}") //"${browser}" - свойство сборщика
+    }
 }

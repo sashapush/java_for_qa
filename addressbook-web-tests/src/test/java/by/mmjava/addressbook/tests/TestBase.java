@@ -11,7 +11,8 @@ import org.testng.annotations.BeforeSuite;
  */
 public class TestBase {
 
-    protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser",BrowserType.CHROME));  // система принимает системное свойство и при его
+    // отсутствии - берёт дефалтовое значение
 
     @BeforeSuite
     public void setUp() throws Exception {
