@@ -3,54 +3,88 @@ package by.mmjava.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("Contact")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name="id")
     private int id=Integer.MAX_VALUE;
     @Expose
+    @Column(name="firstname")
     private  String firstname;
     @Expose
+    @Column(name="middlename")
     private  String middlename;
     @Expose
+    @Column(name="lastname")
     private  String lastname;
     private  String nickname;
+    @Transient
     private  String title;
+    @Transient
     private  String companyName;
-    private  String address1;
+    @Column(name="address2")
+    @Type(type="text")
+    private  String address2;
+    @Column(name="home")
+    @Type(type="text")
     private  String homeNumber;
+    @Column(name="mobile")
+    @Type(type="text")
     private  String mobileNumber;
+    @Column(name="work")
+    @Type(type="text")
     private  String workNumber;
+    @Transient
     private  String fax;
+    @Transient
     private  String email;
+    @Transient
     private  String email2;
+    @Transient
     private  String email3;
+    @Transient
     private  String homepage;
+    @Column(name="address")
+    @Type(type="text")
     private  String address;
+    @Transient
     private  String birthYear;
+    @Transient
     private  String anniversaryYear;
     @Expose
-    private  String group;
+    @Transient
+    transient private  String group;  //пропуск поля либо анотацией @Transient либо ключевым словом transient из мапинга данных таблицы в базе данных
+    @Transient
     private  String secondaryAddress;
+    @Transient
     private  String secondaryPhone;
+    @Transient
     private  String secondaryNotes;
+    @Transient
     private  String allPhones;
+    @Transient
     private  String allEmails;
+    @Transient
     private String allContactData;
+    @Transient
+    private String photo;
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = getPhoto().getPath();
         return this;
     }
-
-    private File photo;
-
-    public String getAllContactData() {
+       public String getAllContactData() {
         return allContactData;
     }
 
@@ -109,7 +143,7 @@ public class ContactData {
     }
 
     public ContactData withAddress1(String address1) {
-        this.address1 = address1; return this;
+        this.address2 = address1; return this;
     }
 
     public ContactData withHomeNumber(String homeNumber) {
@@ -205,8 +239,8 @@ public class ContactData {
         return companyName;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress2() {
+        return address2;
     }
 
     public String getHomeNumber() {

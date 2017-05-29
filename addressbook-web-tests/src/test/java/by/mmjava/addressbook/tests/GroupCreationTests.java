@@ -5,6 +5,7 @@ import by.mmjava.addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,7 +21,9 @@ import static org.hamcrest.CoreMatchers.equalToObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
-@DataProvider
+    org.slf4j.Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
+
+    @DataProvider
 public Iterator<Object[]> validGroupsFromXML() throws IOException { // итератор массивов объектов
     List<Object[]> list = new ArrayList<Object[]>();
     try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) // завернули обычный ридер вБуферед ридер
@@ -52,7 +56,7 @@ public Iterator<Object[]> validGroupsFromXML() throws IOException { // итер�
     }}
     @Test(dataProvider = "validGroupsFromJSON")
     public void testGroupCreation(GroupData group) {
-             app.goTo().GroupsPage();
+              app.goTo().GroupsPage();
             Groups before = app.group().all();
             app.group().create(group);
             assertThat(app.group().count(),equalTo(before.size() + 1));
@@ -67,7 +71,7 @@ public Iterator<Object[]> validGroupsFromXML() throws IOException { // итер�
             assertThat(after, equalToObject(
                     before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
         }
-@Test (enabled = false)
+@Test
     public void testBadGroupCreation() {
         app.goTo().GroupsPage();
             Groups before = app.group().all();

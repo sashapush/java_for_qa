@@ -26,7 +26,7 @@ public class dbConnectionTest {
             System.out.println(groups);
             rs.close();
             st.close();
-            conn.close(); 
+            conn.close();
             // Do something with the Connection
         } catch (SQLException ex) {
             // handle any errors
