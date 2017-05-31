@@ -64,7 +64,6 @@ public class ContactHelper extends HelperBase {
         type(By.name("address2"), contactData.getSecondaryAddress());
         type(By.name("phone2"), contactData.getSecondaryPhone());
         type(By.name("notes"), contactData.getSecondaryNotes());
-
     }
 
     public void selectContactById(int id) {
@@ -160,9 +159,9 @@ public class ContactHelper extends HelperBase {
         String allContactData = firstname+middlename+lastname
                 +addresses+home+mobile+work+email+email2+email3;
         //String fullContactData = allContactData.replaceAll("\\s","");
-                        wd.navigate().back();
+        wd.navigate().back();
         return  new ContactData().withId(contact.getId()).withAllContactData(allContactData);}
-        //return  new ContactData().withId(contact.getId()).withAllContactData(allContactData .replaceAll("\\s",""));}
+    //return  new ContactData().withId(contact.getId()).withAllContactData(allContactData .replaceAll("\\s",""));}
 
 
     public ContactData infoFromEditForm(ContactData contact) {

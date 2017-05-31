@@ -31,12 +31,12 @@ public class ContactModificationTests extends TestBase {
     @Test //(enabled = false)
     public void testContactModification()
     {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId()).withFirstname("test2").withLastname("test modified name").withEmail("email@test.com");
         app.contact().modify(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(),before.size());
         assertThat(after, equalToObject(before.withModified(modifiedContact,contact)));
         //assertThat(after, equalToObject(before.without(modifiedContact).withAdded(contact)));

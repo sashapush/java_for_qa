@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by User on 5/29/2017.
  */
-public class hbConnectionTest {
+public class HbConnectionTest {
     private SessionFactory sessionFactory;
 
     @BeforeClass
