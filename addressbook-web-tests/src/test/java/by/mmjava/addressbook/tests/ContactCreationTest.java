@@ -53,27 +53,29 @@ public class ContactCreationTest extends TestBase{
     }
     @Test (dataProvider = "validContactsFromJSON")
     public void testContactCreation(ContactData contact) {
-
         app.goTo().Home();
-        Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/boobs.jpg") ;
-        ContactData contacta = new ContactData()
-               .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
-        app.contact().create(contacta);
-        Contacts after = app.contact().all();
+        Contacts before = app.db().contacts();
+        File photo = new File("src/test/resources/boobs.jpg");
+        //ContactData contact = new ContactData()
+        //       .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
+        app.contact().create(contact);
+        Contacts after = app.db().contacts();
         assertThat(after.size(),equalToObject( before.size() + 1));
         //присвоение новому контакту корректного идентификатора: берём коллекцию, которая содержит группу с уже известными идентификаторами(афтер)
         //превращаём её в потом stream(); и в потоке ищем максимальный элемент при помощи компаратора.(mapToInt) - превращение потока объектов в поток чисел. ф-ия принимает на вход группу и выдает её ид
         //вызываем фию макс для нахождения максимума и преобразуем в целое число(getasint);
-        assertThat(after, equalTo(before));
+        //assertThat(after, equalTo(before));
+        assertThat(after.size(),equalToObject( before.size() + 1));
+        assertThat(after, equalToObject(
+                before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
     }
 
-@Test (enabled = false)
+    @Test
     public void testCurrentDir (){
         File currentDir = new File (".");
-    System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/boobs.jpg") ;
-    System.out.println(photo.getAbsolutePath());
-    System.out.println(photo.exists());
-}
+        System.out.println(currentDir.getAbsolutePath());
+        File photo = new File("src/test/resources/boobs.jpg") ;
+        System.out.println(photo.getAbsolutePath());
+        System.out.println(photo.exists());
+    }
 }

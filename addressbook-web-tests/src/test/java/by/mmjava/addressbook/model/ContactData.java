@@ -73,8 +73,48 @@ public class ContactData {
     private  String allEmails;
     @Transient
     private String allContactData;
-    @Transient
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", title='" + title + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", homeNumber='" + homeNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", workNumber='" + workNumber + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", address='" + address + '\'' +
+                ", birthYear='" + birthYear + '\'' +
+                ", anniversaryYear='" + anniversaryYear + '\'' +
+                ", group='" + group + '\'' +
+                ", secondaryAddress='" + secondaryAddress + '\'' +
+                ", secondaryPhone='" + secondaryPhone + '\'' +
+                ", secondaryNotes='" + secondaryNotes + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
+    @Column(name="photo")
+    @Type(type="text")
     private String photo;
+
+    public File getPhoto() {
+        return new File(photo);}
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo.getPath();
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -139,13 +179,6 @@ public class ContactData {
         return result;
     }
 
-    public File getPhoto() {
-        return new File(photo);}
-
-    public ContactData withPhoto(File photo) {
-        this.photo = photo.getPath();
-        return this;
-    }
        public String getAllContactData() {
         return allContactData;
     }
@@ -368,15 +401,6 @@ public class ContactData {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id='" + id + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
     }
 
 }
