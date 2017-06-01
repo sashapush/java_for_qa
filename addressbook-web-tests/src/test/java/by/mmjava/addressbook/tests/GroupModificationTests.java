@@ -12,9 +12,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.equalToObject;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.*;
 
 /**
  * Created by User on 4/24/2017.
@@ -39,8 +42,8 @@ public class GroupModificationTests extends TestBase{
         app.group().modify(group);
         assertThat(app.group().count(),equalTo(before.size() ));
         Groups after  = app.db().groups();
-        Assert.assertEquals(after.size(),before.size());
-        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withModified(modifiedGroup,group)));
+        assertEquals(after.size(),before.size());
+        assertThat(after, equalTo(before.withModified(modifiedGroup,group)));
         //MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 

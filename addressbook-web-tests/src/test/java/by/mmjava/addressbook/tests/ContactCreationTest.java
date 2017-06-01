@@ -51,13 +51,13 @@ public class ContactCreationTest extends TestBase{
         List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());  //List <GroupData>.class
         return contacts.stream().map((g -> new Object[] {g} )).collect(Collectors.toList()).iterator();
     }
-    @Test (dataProvider = "validContactsFromJSON")
-    public void testContactCreation(ContactData contact) {
+    @Test //(dataProvider = "validContactsFromJSON")
+    public void testContactCreation() {
         app.goTo().Home();
         Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/boobs.jpg");
-        //ContactData contact = new ContactData()
-        //       .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
+        ContactData contact = new ContactData()
+               .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
         app.contact().create(contact);
         Contacts after = app.db().contacts();
         assertThat(after.size(),equalToObject( before.size() + 1));
@@ -70,7 +70,7 @@ public class ContactCreationTest extends TestBase{
                 before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
     }
 
-    @Test
+    @Test (enabled = false)
     public void testCurrentDir (){
         File currentDir = new File (".");
         System.out.println(currentDir.getAbsolutePath());
