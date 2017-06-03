@@ -51,14 +51,15 @@ public class ContactCreationTest extends TestBase{
         List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());  //List <GroupData>.class
         return contacts.stream().map((g -> new Object[] {g} )).collect(Collectors.toList()).iterator();
     }
-    @Test //(dataProvider = "validContactsFromJSON")
-    public void testContactCreation() {
+    @Test (dataProvider = "validContactsFromJSON")
+    public void testContactCreation(ContactData contact ) {
         app.goTo().Home();
         Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/boobs.jpg");
-        ContactData contact = new ContactData()
-               .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
+        //ContactData contact = new ContactData()
+        //     .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
         app.contact().create(contact);
+        Contacts shmafter = before.withAdded(contact);
         Contacts after = app.db().contacts();
         assertThat(after.size(),equalToObject( before.size() + 1));
         //присвоение новому контакту корректного идентификатора: берём коллекцию, которая содержит группу с уже известными идентификаторами(афтер)
@@ -66,8 +67,9 @@ public class ContactCreationTest extends TestBase{
         //вызываем фию макс для нахождения максимума и преобразуем в целое число(getasint);
         //assertThat(after, equalTo(before));
         assertThat(after.size(),equalToObject( before.size() + 1));
+        //assertThat(after, equalTo(before.withAdded(contact)));
         assertThat(after, equalToObject(
-                before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
+        before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
     }
 
     @Test (enabled = false)

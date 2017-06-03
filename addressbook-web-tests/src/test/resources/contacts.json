@@ -6,6 +6,7 @@
     "email": "email0@test.com",
     "birthYear": "1990",
     "anniversaryYear": "2020",
-    "group": "new"
+    "group": "new",
+    "address":"Address 1a"
   }
 ]
