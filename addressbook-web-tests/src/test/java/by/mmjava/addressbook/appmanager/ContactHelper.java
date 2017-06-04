@@ -56,7 +56,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("homepage"), contactData.getHomepage());
         type(By.name("byear"), contactData.getBirthYear());
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            Select group = new Select(wd.findElement(By.name("new_group")));
+            group.selectByIndex(1);
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }

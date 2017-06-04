@@ -355,11 +355,8 @@ public class ContactData {
     }
 
     public String getGroup() {
-        if (group!=  null) {
-            return group;
-        } else {
-            return "new";
-        }
+                   return group;
+
     }
 
 
