@@ -55,10 +55,13 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), contactData.getEmail3());
         type(By.name("homepage"), contactData.getHomepage());
         type(By.name("byear"), contactData.getBirthYear());
-        if (creation) {
-            Select group = new Select(wd.findElement(By.name("new_group")));
-            group.selectByIndex(1);
-        } else {
+        if (creation)  {
+            if ((contactData.getGroup())!=null){
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            } else {
+                Select group = new Select(wd.findElement(By.name("new_group")));
+                group.selectByIndex(1);
+            }} else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
         type(By.name("ayear"), contactData.getAnniversaryYear());

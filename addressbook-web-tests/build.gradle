@@ -26,6 +26,9 @@ task testGroups (type: Test){
     if (project.hasProperty('target')){
         systemProperty('target',"${target}") //"${browser}" - свойство сборщика
     }
+    if (project.hasProperty('verifyUI')){
+        systemProperty('verifyUI',"${verifyUI}") //"${browser}" - свойство сборщика
+    }
 }
 
 task testContacts (type: Test){
@@ -38,4 +41,8 @@ task testContacts (type: Test){
     if (project.hasProperty('target')){
         systemProperty('target',"${target}") //"${browser}" - свойство сборщика
     }
+    if (project.hasProperty('verifyUI')){
+        systemProperty('verifyUI',"${verifyUI}") //"${browser}" - свойство сборщика
+    }
+
 }
