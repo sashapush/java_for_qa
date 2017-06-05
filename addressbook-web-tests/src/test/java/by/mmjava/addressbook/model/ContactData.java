@@ -7,6 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "addressbook")
 @XStreamAlias("Contact")
@@ -62,9 +65,7 @@ public class ContactData {
     @Column(name="ayear")
     private  String anniversaryYear;
     @Expose
-    @Transient
-    transient private  String group;  //пропуск поля либо анотацией @Transient либо ключевым словом transient из мапинга данных таблицы в базе данных
-    @Transient
+    @Transient //пропуск поля либо анотацией @Transient либо ключевым словом transient из мапинга данных таблицы в базе данных
     private  String secondaryAddress;
     @Transient
     private  String secondaryPhone;
@@ -79,6 +80,13 @@ public class ContactData {
     @Column(name="photo")
     @Type(type="text")
     private String photo;
+
+    @ManyToMany
+    @JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name="id"),inverseJoinColumns = @JoinColumn(name="group_id"))   //в кач-ве связующей таблицы для
+    // many to many используется @Jointable , @joinColumns(name="id") - поле в котором указана связь с объектом текущего класса контакт
+    // inverseJoinColumns - поле, которое указывает на объект другого типа, т.е. группу
+
+    private Set <GroupData>groups = new HashSet<GroupData>();
 
     @Override
     public String toString() {
@@ -98,7 +106,6 @@ public class ContactData {
                 ", address='" + address + '\'' +
                 ", birthYear='" + birthYear + '\'' +
                 ", anniversaryYear='" + anniversaryYear + '\'' +
-                ", group='" + group + '\'' +
                 '}';
     }
 
@@ -245,19 +252,20 @@ public class ContactData {
         this.anniversaryYear = anniversaryYear; return this;
     }
 
-
-
-    public ContactData withGroup(String group) {
-
-        this.group = group; return this;
-    }
-
     public ContactData withSecondaryAddress(String secondaryAddress) {
         this.secondaryAddress = secondaryAddress; return this;
     }
 
     public ContactData withSecondaryPhone(String secondaryPhone) {
         this.secondaryPhone = secondaryPhone;return this;
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public void withGroups(Set<GroupData> groups) {
+        this.groups = groups;
     }
 
     public ContactData withSecondaryNotes(String secondaryNotes) {
@@ -352,11 +360,6 @@ public class ContactData {
 
     public String getSecondaryNotes() {
         return secondaryNotes;
-    }
-
-    public String getGroup() {
-                   return group;
-
     }
 
 

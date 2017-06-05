@@ -5,10 +5,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("group")
 @Entity   //аннотация делает класс GroupData привязанным к базе
@@ -28,6 +27,12 @@ public class GroupData {
     @XStreamOmitField
     @Id
     @Column(name = "group_id")
+    @ManyToMany(mappedBy = "groups")  // в парном классе нужно найти св-во\аттрибут groups и там взять описание связи
+    private Set<ContactData> contacts = new HashSet<ContactData>();
+    public Set<ContactData> getContacts() {
+        return contacts;
+    }
+
     private  int id = Integer.MAX_VALUE;
 
     public int getId() {
@@ -42,6 +47,8 @@ public class GroupData {
         return this;
     }
 
+
+
     public GroupData withHeader(String header) {
         this.header = header;
         return this;
@@ -51,6 +58,7 @@ public class GroupData {
         this.footer = footer;
         return this;
     }
+
 
 
     public String getName() {
