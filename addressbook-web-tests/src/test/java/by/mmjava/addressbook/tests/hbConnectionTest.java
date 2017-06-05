@@ -1,7 +1,6 @@
 package by.mmjava.addressbook.tests;
 
 import by.mmjava.addressbook.model.ContactData;
-import by.mmjava.addressbook.model.GroupData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -13,9 +12,9 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 /**
- * Created by User on 5/29/2017.
+ * Created by User on 6/5/2017.
  */
-public class HbConnectionTest {
+public class hbConnectionTest {
     private SessionFactory sessionFactory;
 
     @BeforeClass
@@ -40,7 +39,7 @@ public class HbConnectionTest {
     public void testHbConnection(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List <ContactData> result = session.createQuery( "from ContactData where deprecated='0000-00-00'").list();
+        List<ContactData> result = session.createQuery( "from ContactData where deprecated='0000-00-00'").list();
         for ( ContactData contact : result ) {
             System.out.println(contact);
             System.out.println(contact.getGroups());
