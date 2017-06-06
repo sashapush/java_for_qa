@@ -81,11 +81,10 @@ public class ContactData {
     @Type(type="text")
     private String photo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name="id"),inverseJoinColumns = @JoinColumn(name="group_id"))   //в кач-ве связующей таблицы для
     // many to many используется @Jointable , @joinColumns(name="id") - поле в котором указана связь с объектом текущего класса контакт
     // inverseJoinColumns - поле, которое указывает на объект другого типа, т.е. группу
-
     private Set <GroupData>groups = new HashSet<GroupData>();
 
     @Override

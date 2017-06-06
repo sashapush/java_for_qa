@@ -14,9 +14,8 @@ import java.util.List;
 /**
  * Created by User on 6/5/2017.
  */
-public class hbConnectionTest {
+public class HbConnectionTest {
     private SessionFactory sessionFactory;
-
     @BeforeClass
     protected void setUp() throws Exception {
         // A SessionFactory is set up once for an application!
@@ -40,13 +39,14 @@ public class hbConnectionTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery( "from ContactData where deprecated='0000-00-00'").list();
+
+        session.getTransaction().commit();
+        session.close();
+
         for ( ContactData contact : result ) {
             System.out.println(contact);
             System.out.println(contact.getGroups());
         }
-        session.getTransaction().commit();
-        session.close();
-
 
 
 

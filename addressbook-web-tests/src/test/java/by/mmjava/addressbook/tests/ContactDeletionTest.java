@@ -22,7 +22,7 @@ public class ContactDeletionTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().Home();
-        if (app.contact().all().size()==0){
+        if (app.db().contacts().size()==0){
             app.contact().create(new ContactData().withFirstname("test2").withLastname("test last name").withEmail("email@test.com"));
         }
         app.goTo().Home();

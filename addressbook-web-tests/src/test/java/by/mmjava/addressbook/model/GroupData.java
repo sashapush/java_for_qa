@@ -24,19 +24,22 @@ public class GroupData {
     @Column(name = "group_footer")
     @Type(type = "text")
     private  String footer;
+
+    @ManyToMany(mappedBy = "groups")
+    // в парном классе нужно найти св-во\аттрибут groups и там взять описание связи
+    private Set<ContactData> contacts = new HashSet<ContactData>();
     @XStreamOmitField
     @Id
     @Column(name = "group_id")
-    @ManyToMany(mappedBy = "groups")  // в парном классе нужно найти св-во\аттрибут groups и там взять описание связи
-    private Set<ContactData> contacts = new HashSet<ContactData>();
-    public Set<ContactData> getContacts() {
-        return contacts;
-    }
-
     private  int id = Integer.MAX_VALUE;
 
     public int getId() {
         return id;
+    }
+
+
+    public Set<ContactData> getContacts() {
+        return new Contacts(contacts);
     }
     public GroupData withId(int id) {
         this.id = id;
@@ -46,9 +49,6 @@ public class GroupData {
         this.name = name;
         return this;
     }
-
-
-
     public GroupData withHeader(String header) {
         this.header = header;
         return this;
