@@ -4,9 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @XStreamAlias("group")
@@ -102,4 +105,6 @@ public class GroupData {
         result = 31 * result + id;
         return result;
     }
+
+
 }

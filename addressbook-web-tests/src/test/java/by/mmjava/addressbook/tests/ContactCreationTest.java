@@ -2,9 +2,12 @@ package by.mmjava.addressbook.tests;
 
 import by.mmjava.addressbook.model.ContactData;
 import by.mmjava.addressbook.model.Contacts;
+import by.mmjava.addressbook.model.GroupData;
+import by.mmjava.addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -22,6 +25,14 @@ import static org.hamcrest.CoreMatchers.equalToObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTest extends TestBase{
+    @BeforeMethod
+    public void ensurePreconditions ()
+    {
+        if ( app.db().groups().size()==0){
+            app.group().create(new GroupData().withName("pre").withHeader("condition"));
+        }
+    }
+
     @DataProvider
     public Iterator<Object[]> validContactsFromXML() throws IOException { // итератор массивов объектов
         List<Object[]> list = new ArrayList<Object[]>();
@@ -51,13 +62,15 @@ public class ContactCreationTest extends TestBase{
         List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());  //List <GroupData>.class
         return contacts.stream().map((g -> new Object[] {g} )).collect(Collectors.toList()).iterator();
     }
-    @Test (dataProvider = "validContactsFromJSON")
-    public void testContactCreation(ContactData contact ) {
+    @Test //(dataProvider = "validContactsFromJSON")
+    public void testContactCreation( ) {
+        Groups groups = app.db().groups();
         app.goTo().Home();
         Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/boobs.jpg");
-        //ContactData contact = new ContactData()
-        //     .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").withGroup("new").withBirthYear("1992").withAnniversaryYear("2200").withPhoto(photo);
+        ContactData contact = new ContactData()
+             .withFirstname("test2").withLastname("test last name").withEmail("email@test.com").inGroup(groups.iterator().next()).withBirthYear("1992")
+                .withAnniversaryYear("2200").withPhoto(photo);
         app.contact().create(contact);
         Contacts shmafter = before.withAdded(contact);
         Contacts after = app.db().contacts();

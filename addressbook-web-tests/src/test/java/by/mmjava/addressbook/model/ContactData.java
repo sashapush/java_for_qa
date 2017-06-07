@@ -80,7 +80,6 @@ public class ContactData {
     @Column(name="photo")
     @Type(type="text")
     private String photo;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name="id"),inverseJoinColumns = @JoinColumn(name="group_id"))   //в кач-ве связующей таблицы для
     // many to many используется @Jointable , @joinColumns(name="id") - поле в котором указана связь с объектом текущего класса контакт
@@ -105,6 +104,7 @@ public class ContactData {
                 ", address='" + address + '\'' +
                 ", birthYear='" + birthYear + '\'' +
                 ", anniversaryYear='" + anniversaryYear + '\'' +
+                ", groups=" + groups +
                 '}';
     }
 
@@ -366,4 +366,8 @@ public class ContactData {
         this.id = id;
     }
 
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }

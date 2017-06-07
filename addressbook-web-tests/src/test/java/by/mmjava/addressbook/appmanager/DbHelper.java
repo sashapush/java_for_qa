@@ -4,6 +4,7 @@ import by.mmjava.addressbook.model.ContactData;
 import by.mmjava.addressbook.model.Contacts;
 import by.mmjava.addressbook.model.GroupData;
 import by.mmjava.addressbook.model.Groups;
+import by.mmjava.addressbook.tests.TestBase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -15,11 +16,11 @@ import java.util.List;
 /**
  * Created by User on 5/30/2017.
  */
-public class DbHelper {
+public class DbHelper extends TestBase{
 
     private final SessionFactory sessionFactory;
 
-    public DbHelper() {
+    public DbHelper()  {
         // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml

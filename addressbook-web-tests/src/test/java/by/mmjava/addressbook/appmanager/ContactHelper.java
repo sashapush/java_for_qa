@@ -2,13 +2,17 @@ package by.mmjava.addressbook.appmanager;
 
 import by.mmjava.addressbook.model.ContactData;
 import by.mmjava.addressbook.model.Contacts;
+import by.mmjava.addressbook.model.GroupData;
+import by.mmjava.addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.sql.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by User on 4/23/2017.
@@ -56,20 +60,17 @@ public class ContactHelper extends HelperBase {
         type(By.name("homepage"), contactData.getHomepage());
         type(By.name("byear"), contactData.getBirthYear());
         if (creation) {
-            //  if ((contactData.getGroup())!=null){
-            //     new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-            //} else {
-            Select group = new Select(wd.findElement(By.name("new_group")));
-            group.selectByIndex(1);
-            //}} else {
-        }else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
-        type(By.name("ayear"), contactData.getAnniversaryYear());
-        type(By.name("address2"), contactData.getSecondaryAddress());
-        type(By.name("phone2"), contactData.getSecondaryPhone());
-        type(By.name("notes"), contactData.getSecondaryNotes());
-    }
+            if ((contactData.getGroups().size()>0)){
+                Assert.assertTrue(contactData.getGroups().size()==1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }else {
+                Assert.assertFalse(isElementPresent(By.name("new_group")));
+            }
+            type(By.name("ayear"), contactData.getAnniversaryYear());
+            type(By.name("address2"), contactData.getSecondaryAddress());
+            type(By.name("phone2"), contactData.getSecondaryPhone());
+            type(By.name("notes"), contactData.getSecondaryNotes());
+        }}
 
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();  //тэг инпут, имя value
@@ -115,12 +116,42 @@ public class ContactHelper extends HelperBase {
         submitUpdatedContactData();
         viewCreatedContactData();
     }
+    public void addToGroup(ContactData contact) {
+        //checkGroupsWithoutSelectedContact(contact.getId());
+        contactAddToGroup(contact);
+    }
+
+
+    private void clickAddToGroup() {
+        click(By.name("add"));
+    }
+
+    private void selectGroup() {
+        //if (contact is present in group)
+        Select group = new Select(wd.findElement(By.name("to_group")));
+        }
+
+
     private void gotoAddNewContact() {
         click(By.xpath("//a[contains(text(),'add new')]"));
     }
 
     public Contacts contactsCache = null;
 
+    public void contactAddToGroup(ContactData contactData){
+        DbHelper db = new DbHelper();
+        int groupsCount = db.groups().size();
+        selectContactById(contactData.getId());
+        List <Groups> groups = contactData.getGroups();
+        for (int i=0; i<db.contacts().size(); i++){
+            if (contactData.getGroups().size() != db.groups().size()){
+                nv.Home();
+            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            click(By.name("add"));
+        } else {
+            System.out.println("Selected contact already assigned to all %s groups");
+        }}
+        }
     public Contacts all() {
         if (contactsCache != null) {
             return new Contacts(contactsCache);
@@ -140,6 +171,7 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
     public ContactData gluedInfoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -166,8 +198,6 @@ public class ContactHelper extends HelperBase {
         //String fullContactData = allContactData.replaceAll("\\s","");
         wd.navigate().back();
         return  new ContactData().withId(contact.getId()).withAllContactData(allContactData);}
-    //return  new ContactData().withId(contact.getId()).withAllContactData(allContactData .replaceAll("\\s",""));}
-
 
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
@@ -185,7 +215,6 @@ public class ContactHelper extends HelperBase {
         return  new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
                 withHomeNumber(home).withAddress(addresses).withMobileNumber(mobile).withWorkNumber(work).
                 withSecondaryPhone(homephone2).withEmail(email).withEmail2(email2).withEmail3(email3);}
-
 
     public void initContactModificationById (int id)
     {

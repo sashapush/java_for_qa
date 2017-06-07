@@ -1,5 +1,6 @@
 package by.mmjava.addressbook.appmanager;
 
+import by.mmjava.addressbook.model.Contacts;
 import by.mmjava.addressbook.model.GroupData;
 import by.mmjava.addressbook.model.Groups;
 import org.openqa.selenium.By;
@@ -103,5 +104,16 @@ public class GroupHelper extends HelperBase {
         return  new Groups(groupsCache);
     }
 
+        public Groups allGroups() {
+        Groups contacts = new Groups();  //создание списка с именем контактов
+        List <WebElement> elements = wd.findElements(By.name("add")); //поиск элементов(контактов на странице)
+        for (WebElement element : elements) //прохождение по каждому элементу выше в цикле, переменная element пробегает по списку elements
+        {
+            List<WebElement> cells = element.findElements(By.name("to_group"));
+            int id = Integer.parseInt(element.findElement(By.tagName("option value")).getAttribute("value"));
+            contacts.add(new GroupData().withId(id));
+        }
+        return contacts;
+    }
 
 }
