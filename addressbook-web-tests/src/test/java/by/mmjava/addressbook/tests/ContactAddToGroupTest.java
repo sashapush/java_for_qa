@@ -3,6 +3,7 @@ package by.mmjava.addressbook.tests;
 import by.mmjava.addressbook.model.ContactData;
 import by.mmjava.addressbook.model.Contacts;
 import by.mmjava.addressbook.model.GroupData;
+import by.mmjava.addressbook.model.Groups;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -10,11 +11,13 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static by.mmjava.addressbook.tests.TestBase.app;
 
@@ -46,9 +49,23 @@ public class ContactAddToGroupTest extends TestBase {
     public void testContactAddToGroup(){
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
-        ContactData modifiedContact = before.iterator().next();
+        for (int i=0;i<app.db().contacts().size();i++){
+            ContactData modifiedContact = before.iterator().next();
+            Set <GroupData> allGroups=app.db().groups();
+            Set <GroupData> contactGroups = modifiedContact.getGroups();
+            Set <GroupData> availableGroups = modifiedContact.getGroups();
+            if ( allGroups.size() != contactGroups.size() ) {
+                new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(availableGroups.iterator().next().getName());
+                click(By.name("add"));
+            }else {
+                System.out.println("wasted, no more contacts for addition");
+            }
+            app.contact().addToGroup(modifiedContact);
+        }
 
-        app.contact().addToGroup(modifiedContact);
+        /*можно получить список контактов. потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
+                а если непустой -- берём из него группу и подходящая пара найдена*/
+
         }
 
 }

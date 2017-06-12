@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.omg.PortableInterceptor.ACTIVE;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by User on 6/5/2017.
  */
-public class HbConnectionTest {
+public class HbConnectionTest{
     private SessionFactory sessionFactory;
     @BeforeClass
     protected void setUp() throws Exception {
@@ -36,7 +37,7 @@ public class HbConnectionTest {
     }
 
 
-    @Test
+    @Test ()
     public void testHbConnection(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -62,9 +63,9 @@ public class HbConnectionTest {
         List<GroupData> result = session.createQuery( "from GroupData").getResultList();
         session.getTransaction().commit();
         session.close();
+        Groups group = new Groups();
+        for ( GroupData perebor : group ) {
 
-        for ( GroupData group : result ) {
-            System.out.println(group);
             }
 return result;
 }
