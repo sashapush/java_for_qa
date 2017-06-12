@@ -4,11 +4,15 @@ import by.mmjava.addressbook.model.ContactData;
 import by.mmjava.addressbook.model.Contacts;
 import by.mmjava.addressbook.model.GroupData;
 import by.mmjava.addressbook.model.Groups;
+import by.mmjava.addressbook.tests.HbConnectionTest;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 
 import java.sql.*;
 import java.util.List;
@@ -17,7 +21,12 @@ import java.util.Set;
 /**
  * Created by User on 4/23/2017.
  */
+
+
 public class ContactHelper extends HelperBase {
+
+    private SessionFactory sessionFactory;
+
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -129,7 +138,7 @@ public class ContactHelper extends HelperBase {
     private void selectGroup() {
         //if (contact is present in group)
         Select group = new Select(wd.findElement(By.name("to_group")));
-        }
+    }
 
 
     private void gotoAddNewContact() {
@@ -142,16 +151,28 @@ public class ContactHelper extends HelperBase {
         DbHelper db = new DbHelper();
         int groupsCount = db.groups().size();
         selectContactById(contactData.getId());
-        List <Groups> groups = contactData.getGroups();
+        Set <GroupData> groups = contactData.getGroups();
+        List <GroupData> allgroups = getGroupsAll();
+
         for (int i=0; i<db.contacts().size(); i++){
             if (contactData.getGroups().size() != db.groups().size()){
-                nv.Home();
-            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-            click(By.name("add"));
-        } else {
-            System.out.println("Selected contact already assigned to all %s groups");
-        }}
-        }
+                new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+                click(By.name("add"));
+            } else {
+                return;
+            }}
+    }
+    public  List<GroupData> getGroupsAll(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        GroupData groups = new GroupData();
+        List<GroupData> result = session.createQuery( "from GroupData").getResultList();
+        session.getTransaction().commit();
+        session.close();
+         return result;
+    }
+
+
     public Contacts all() {
         if (contactsCache != null) {
             return new Contacts(contactsCache);
