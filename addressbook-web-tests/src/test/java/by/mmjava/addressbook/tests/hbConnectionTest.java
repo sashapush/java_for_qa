@@ -17,10 +17,10 @@ import java.util.List;
 /**
  * Created by User on 6/5/2017.
  */
-public class HbConnectionTest{
+public class HbConnectionTest extends TestBase{
     private SessionFactory sessionFactory;
     @BeforeClass
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
@@ -35,9 +35,7 @@ public class HbConnectionTest{
             StandardServiceRegistryBuilder.destroy( registry );
         }
     }
-
-
-    @Test ()
+    @Test (enabled = false)
     public void testHbConnection(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -50,23 +48,16 @@ public class HbConnectionTest{
             System.out.println(contact);
             System.out.println(contact.getGroups());
         }
-
-
-
     }
-
-
     @Test
-    public List<GroupData> getGroupsAll(){
+    public void getGroupsList(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<GroupData> result = session.createQuery( "from GroupData").getResultList();
+        List<GroupData> result = session.createQuery( "from GroupData").list();
         session.getTransaction().commit();
         session.close();
-        Groups group = new Groups();
-        for ( GroupData perebor : group ) {
-
+        for ( GroupData group : result ) {
+            System.out.println(group);
             }
-return result;
 }
 }

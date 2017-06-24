@@ -125,11 +125,6 @@ public class ContactHelper extends HelperBase {
         submitUpdatedContactData();
         viewCreatedContactData();
     }
-    public void addToGroup(ContactData contact) {
-        //checkGroupsWithoutSelectedContact(contact.getId());
-        contactAddToGroup(contact);
-    }
-
 
     private void clickAddToGroup() {
         click(By.name("add"));
@@ -147,21 +142,18 @@ public class ContactHelper extends HelperBase {
 
     public Contacts contactsCache = null;
 
-    public void contactAddToGroup(ContactData contactData){
-        DbHelper db = new DbHelper();
-        int groupsCount = db.groups().size();
-        selectContactById(contactData.getId());
-        Set <GroupData> groups = contactData.getGroups();
-        List <GroupData> allgroups = getGroupsAll();
-
-        for (int i=0; i<db.contacts().size(); i++){
-            if (contactData.getGroups().size() != db.groups().size()){
-                new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+    public void contactAddToGroup(ContactData contactData, Set<GroupData> allGroups ){
+        wd.findElement(By.cssSelector("input[value='"+ contactData.getId() + "']")).click();
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(allGroups.iterator().next().getName());
                 click(By.name("add"));
-            } else {
-                return;
-            }}
-    }
+            }
+    public void contactRemoveFromGroup(){
+        DbHelper db = new DbHelper();
+        for (int i=0; i<db.groups().size(); i++){
+            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(getGroupsAll().iterator().next().getName());
+            //selectContactById(contactData.getId());
+            } }
+
     public  List<GroupData> getGroupsAll(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -171,8 +163,6 @@ public class ContactHelper extends HelperBase {
         session.close();
          return result;
     }
-
-
     public Contacts all() {
         if (contactsCache != null) {
             return new Contacts(contactsCache);

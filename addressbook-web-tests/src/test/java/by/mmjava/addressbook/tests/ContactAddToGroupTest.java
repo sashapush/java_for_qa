@@ -44,28 +44,32 @@ public class ContactAddToGroupTest extends TestBase {
     }*/
 
 
-
     @Test
-    public void testContactAddToGroup(){
+    public void testContactAddToGroup() {
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
-        for (int i=0;i<app.db().contacts().size();i++){
+        //ContactData modifiedContact = before.iterator().next();
+        for (int i = 0; i < 100; i++) {
             ContactData modifiedContact = before.iterator().next();
-            Set <GroupData> allGroups=app.db().groups();
-            Set <GroupData> contactGroups = modifiedContact.getGroups();
-            Set <GroupData> availableGroups = modifiedContact.getGroups();
-            if ( allGroups.size() != contactGroups.size() ) {
-                new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(availableGroups.iterator().next().getName());
-                click(By.name("add"));
-            }else {
-                System.out.println("wasted, no more contacts for addition");
+            Set<GroupData> allGroups = app.db().groups();
             }
-            app.contact().addToGroup(modifiedContact);
+        for (int i = 0; i < app.db().contacts().size(); i++) {
+            ContactData modifiedContact = before.iterator().next();  //проверить работу итератора для id=73
+            Set<GroupData> allGroups = app.db().groups();
+            Set<GroupData> contactGroups = modifiedContact.getGroups();
+            allGroups.removeAll(contactGroups);
+            if (allGroups.size()>0){
+               app.contact().contactAddToGroup(modifiedContact,allGroups);
+            } else {return; }}
+           }
+    Contacts after = app.db().contacts();
         }
 
-        /*можно получить список контактов. потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
+        /*можно получить список контактов.
+        /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
                 а если непустой -- берём из него группу и подходящая пара найдена*/
 
-        }
 
-}
+
+
+
