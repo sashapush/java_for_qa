@@ -25,46 +25,35 @@ import static by.mmjava.addressbook.tests.TestBase.app;
  * Created by User on 6/6/2017.
  */
 public class ContactAddToGroupTest extends TestBase {
-    private SessionFactory sessionFactory;
-    //@BeforeMethod
-    /*public void setUp() throws Exception {
-        // A SessionFactory is set up once for an application!
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure() // configures settings from hibernate.cfg.xml
-                .build();
-        try {
-            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().Home();
+        if (app.db().contacts().size()==0){
+            app.contact().create(new ContactData().withFirstname("test2").withLastname("test last name").withEmail("email@test.com"));
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-            // so destroy it manually.
-            StandardServiceRegistryBuilder.destroy( registry );
+        app.goTo().Home();
+        app.goTo().GroupsPage();
+        if ( app.db().groups().size()==0){
+            app.group().create(new GroupData().withName("pre").withHeader("condition"));
         }
-    }*/
-
+    }
 
     @Test
     public void testContactAddToGroup() {
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
         //ContactData modifiedContact = before.iterator().next();
-        for (int i = 0; i < 100; i++) {
-            ContactData modifiedContact = before.iterator().next();
-            Set<GroupData> allGroups = app.db().groups();
-            }
         for (int i = 0; i < app.db().contacts().size(); i++) {
-            ContactData modifiedContact = before.iterator().next();  //проверить работу итератора для id=73
+            ContactData modifiedContact = before.iterator().next();  //проверить работу итератора для id!=146
             Set<GroupData> allGroups = app.db().groups();
             Set<GroupData> contactGroups = modifiedContact.getGroups();
             allGroups.removeAll(contactGroups);
             if (allGroups.size()>0){
                app.contact().contactAddToGroup(modifiedContact,allGroups);
+                break;
             } else {return; }}
            }
-    Contacts after = app.db().contacts();
         }
-
         /*можно получить список контактов.
         /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
                 а если непустой -- берём из него группу и подходящая пара найдена*/

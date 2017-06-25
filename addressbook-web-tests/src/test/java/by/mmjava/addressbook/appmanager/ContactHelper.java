@@ -146,13 +146,13 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='"+ contactData.getId() + "']")).click();
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(allGroups.iterator().next().getName());
                 click(By.name("add"));
+        System.out.println("Contact with id " +contactData.getId() + " has been added to group X " + allGroups.iterator().next().getName());
             }
-    public void contactRemoveFromGroup(){
-        DbHelper db = new DbHelper();
-        for (int i=0; i<db.groups().size(); i++){
-            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(getGroupsAll().iterator().next().getName());
-            //selectContactById(contactData.getId());
-            } }
+    public void contactRemoveFromGroup(ContactData contactData){
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+        wd.findElement(By.cssSelector("input[value='"+ contactData.getId() + "']")).click();
+        wd.findElement(By.name("remove")).click();
+}
 
     public  List<GroupData> getGroupsAll(){
         Session session = sessionFactory.openSession();
