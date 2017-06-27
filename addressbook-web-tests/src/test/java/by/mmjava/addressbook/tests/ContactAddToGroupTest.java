@@ -57,12 +57,11 @@ public class ContactAddToGroupTest extends TestBase {
             if (allGroups.size()>0){
                 app.contact().contactAddToGroup(modifiedContact,allGroups);
                 newContactGroups = modifiedContact.getGroups();
-                assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
-                assertThat(newContactGroups, equalToObject(
-                        contactGroups));
                 break;
             }}
-
+        assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
+        assertThat(newContactGroups, equalToObject(
+                contactGroups));
     }
 }
 
