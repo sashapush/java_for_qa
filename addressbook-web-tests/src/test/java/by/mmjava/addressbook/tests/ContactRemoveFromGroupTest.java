@@ -6,6 +6,7 @@ import by.mmjava.addressbook.model.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -28,8 +29,10 @@ public class ContactRemoveFromGroupTest extends TestBase {
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
         //ContactData modifiedContact = before.iterator().next();
-        for (int i = 0; i < app.db().contacts().size(); i++) {
-            ContactData modifiedContact = before.iterator().next();  //проверить работу итератора для id!=146
+        Iterator<ContactData> ig = before.iterator();
+        //for (int i = 0; i < app.db().contacts().size(); i++) {
+        for  (ContactData groups : before) {
+            ContactData modifiedContact = ig.next();
             Set<GroupData> contactGroups = modifiedContact.getGroups();
             if (contactGroups.size() > 0) {
                 app.contact().contactRemoveFromGroup(modifiedContact);

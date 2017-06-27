@@ -44,29 +44,27 @@ public class ContactAddToGroupTest extends TestBase {
 
     @Test
     public void testContactAddToGroup() {
+        Set <GroupData> newContactGroups;
+        Set <GroupData> contactGroups;
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
-        //ContactData modifiedContact = before.iterator().next();
         Iterator<ContactData> ig = before.iterator();     //итератор для правильного перебора коллекции в цикле
-        //for (int i = 0; i < app.db().contacts().size(); i++) {
         for  (ContactData groups : before) {
             ContactData modifiedContact = ig.next();
-            //ContactData modifiedContact = before.iterator().next();
-
             Set<GroupData> allGroups = app.db().groups();
-            Set<GroupData> contactGroups = modifiedContact.getGroups();
+            contactGroups = modifiedContact.getGroups();
             allGroups.removeAll(contactGroups);
             if (allGroups.size()>0){
-               app.contact().contactAddToGroup(modifiedContact,allGroups);
-               Set <GroupData> newContactGroups = modifiedContact.getGroups();
-               assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
-               assertThat(newContactGroups, equalToObject(
-                       contactGroups));
+                app.contact().contactAddToGroup(modifiedContact,allGroups);
+                newContactGroups = modifiedContact.getGroups();
+                assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
+                assertThat(newContactGroups, equalToObject(
+                        contactGroups));
                 break;
             }}
 
     }
-           }
+}
 
         /*можно получить список контактов.
         /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.

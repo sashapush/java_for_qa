@@ -152,7 +152,7 @@ public class ContactHelper extends HelperBase {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
         wd.findElement(By.cssSelector("input[value='"+ contactData.getId() + "']")).click();
         wd.findElement(By.name("remove")).click();
-        System.out.println("Contact with id " +contactData.getId() + " has been removed from group X " + contactData.getGroups().iterator().next().getName());
+        System.out.println("Contact with id " +contactData.getId() + " has been removed from group with ID " + contactData.getGroups().iterator().next().getId());
 }
 
     public  List<GroupData> getGroupsAll(){
