@@ -12,14 +12,18 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import static by.mmjava.addressbook.tests.TestBase.app;
+import static org.hamcrest.CoreMatchers.equalToObject;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by User on 6/6/2017.
@@ -43,17 +47,27 @@ public class ContactAddToGroupTest extends TestBase {
         app.goTo().Home();
         Contacts before = app.db().contacts();  // получен список контактов
         //ContactData modifiedContact = before.iterator().next();
-        for (int i = 0; i < app.db().contacts().size(); i++) {
-            ContactData modifiedContact = before.iterator().next();  //проверить работу итератора для id!=146
+        Iterator<ContactData> ig = before.iterator();     //итератор для правильного перебора коллекции в цикле
+        //for (int i = 0; i < app.db().contacts().size(); i++) {
+        for  (ContactData groups : before) {
+            ContactData modifiedContact = ig.next();
+            //ContactData modifiedContact = before.iterator().next();
+
             Set<GroupData> allGroups = app.db().groups();
             Set<GroupData> contactGroups = modifiedContact.getGroups();
             allGroups.removeAll(contactGroups);
             if (allGroups.size()>0){
                app.contact().contactAddToGroup(modifiedContact,allGroups);
+               Set <GroupData> newContactGroups = modifiedContact.getGroups();
+               assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
+               assertThat(newContactGroups, equalToObject(
+                       contactGroups));
                 break;
-            } else {return; }}
+            }}
+
+    }
            }
-        }
+
         /*можно получить список контактов.
         /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
                 а если непустой -- берём из него группу и подходящая пара найдена*/
