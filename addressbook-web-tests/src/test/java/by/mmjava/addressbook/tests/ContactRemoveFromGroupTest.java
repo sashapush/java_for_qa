@@ -9,6 +9,9 @@ import org.testng.annotations.Test;
 import java.util.Iterator;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * Created by User on 6/18/2017.
  */
@@ -37,6 +40,8 @@ public class ContactRemoveFromGroupTest extends TestBase {
             if (contactGroups.size() > 0) {
                 app.contact().contactRemoveFromGroup(modifiedContact);
                 app.goTo().Home();
+                Contacts after = app.db().contacts();
+                assertThat(after, equalTo(before.without(modifiedContact).withAdded(modifiedContact)));
                 break;
                 } else {
                 return;

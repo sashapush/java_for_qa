@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import static by.mmjava.addressbook.tests.TestBase.app;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.equalToObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -54,16 +55,21 @@ public class ContactAddToGroupTest extends TestBase {
             Set<GroupData> allGroups = app.db().groups();
             contactGroups = modifiedContact.getGroups();
             allGroups.removeAll(contactGroups);
-            if (allGroups.size()>0){
-                app.contact().contactAddToGroup(modifiedContact,allGroups);
-                newContactGroups = modifiedContact.getGroups();
+            if (allGroups.size()>0) {
+                app.contact().contactAddToGroup(modifiedContact, allGroups);
+                //newContactGroups = modifiedContact.getGroups();
+                //modifiedContact2= after;
+            Contacts after = app.db().contacts();
+            //Contacts shmafter = after.without(modifiedContact);
+            //Contacts shmafter2 = after.withAdded(modifiedContact);
+            assertThat(after, equalTo(before.without(modifiedContact).withAdded(modifiedContact)));
                 break;
-            }}
-        assertThat(newContactGroups.size(),equalToObject( contactGroups.size() + 1));
-        assertThat(newContactGroups, equalToObject(
-                contactGroups));
-    }
-}
+            }
+
+        }
+
+    }}
+
 
         /*можно получить список контактов.
         /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
