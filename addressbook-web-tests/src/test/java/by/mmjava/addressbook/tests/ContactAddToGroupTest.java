@@ -45,36 +45,31 @@ public class ContactAddToGroupTest extends TestBase {
 
     @Test
     public void testContactAddToGroup() {
-        Set <GroupData> newContactGroups;
-        Set <GroupData> contactGroups;
+        Groups newContactGroups;
+        Groups contactGroups;
         app.goTo().Home();
-        Contacts before = app.db().contacts();  // получен список контактов
+        Contacts before = app.db().contacts();
         Iterator<ContactData> ig = before.iterator();     //итератор для правильного перебора коллекции в цикле
         for  (ContactData groups : before) {
             ContactData modifiedContact = ig.next();
-            Set<GroupData> allGroups = app.db().groups();
             contactGroups = modifiedContact.getGroups();
+            Groups allGroup = app.db().groups();
+            if (contactGroups.size()==allGroup.size())  {
+                app.goTo().GroupsPage();
+                app.group().create(new GroupData().withName("contact").withHeader("addtogroup"));
+            }
+            Groups allGroups = app.db().groups();
             allGroups.removeAll(contactGroups);
             if (allGroups.size()>0) {
                 app.contact().contactAddToGroup(modifiedContact, allGroups);
-                //newContactGroups = modifiedContact.getGroups();
-                //modifiedContact2= after;
-            Contacts after = app.db().contacts();
-            //Contacts shmafter = after.without(modifiedContact);
-            //Contacts shmafter2 = after.withAdded(modifiedContact);
-            assertThat(after, equalTo(before.without(modifiedContact).withAdded(modifiedContact)));
+                newContactGroups = modifiedContact.getGroups();
+                //assertThat(after.withAdded(allGroups), equalTo(contactGroups.withAddedGroup()));
+           // assertThat(newContactGroups, equalTo(contactGroups.add(allGroups)));
                 break;
             }
 
         }
-
     }}
-
-
-        /*можно получить список контактов.
-        /*потом в цикле искать подходящий контакт -- для каждого контакта строить список групп, в которые он не входит, и смотреть, если список пустой -- переходим к следующему контакту.
-                а если непустой -- берём из него группу и подходящая пара найдена*/
-
 
 
 

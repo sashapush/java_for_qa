@@ -16,7 +16,7 @@ public class Groups extends ForwardingSet <GroupData> {
 
     public Groups(Groups groups) {
         this.delegate =new HashSet<GroupData>(groups.delegate()); //берём множество из существующего объекта который передан в качестве параметра, строим новое множество, содержащее те же самые элементы
-        // и присваиваем это d новое множество в качестве аттрибута в новый, создаваемый этим контруктором объект
+        // и присваиваем это новое множество в качестве аттрибута в новый, создаваемый этим контруктором объект
     }
 
     public Groups() {
@@ -36,6 +36,12 @@ public class Groups extends ForwardingSet <GroupData> {
     public Groups withAdded(GroupData group){  //метод делает копию
         Groups groups = new Groups(this);
         groups.add(group);
+        return groups;
+    }
+
+    public Groups withAddedGroup(Groups group){  //метод делает копию
+        Groups groups = new Groups(this);
+       // groups.add(group);
         return groups;
     }
 

@@ -43,7 +43,7 @@ public class ContactRemoveFromGroupTest extends TestBase {
                 Contacts after = app.db().contacts();
                 assertThat(after, equalTo(before.without(modifiedContact).withAdded(modifiedContact)));
                 break;
-                } else {
+            } else {
                 return;
             }
         }
