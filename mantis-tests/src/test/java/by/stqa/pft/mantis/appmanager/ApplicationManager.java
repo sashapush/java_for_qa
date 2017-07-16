@@ -20,7 +20,9 @@ public class ApplicationManager {
     private  WebDriver wd;
 
     private String browser;
-    private RegistartionHelper registartionHelper;
+    private RegistrationHelper registartionHelper;
+    private FtpHelper ftp;
+    private MailHelper mailHelper;
 
 
     public ApplicationManager(String browser)  {
@@ -47,9 +49,9 @@ public class ApplicationManager {
     return properties.getProperty(key);
     }
 
-    public RegistartionHelper registration() {
+    public RegistrationHelper registration() {
         if (registartionHelper == null) {
-            registartionHelper = new RegistartionHelper(this);
+            registartionHelper = new RegistrationHelper(this);
         }
         return  registartionHelper;
     }
@@ -69,5 +71,19 @@ public class ApplicationManager {
 
         }
         return wd;
+    }
+
+    public FtpHelper ftp(){
+        if (ftp == null){
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
+
+    public MailHelper mail(){
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
     }
 }

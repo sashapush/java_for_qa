@@ -7,19 +7,22 @@ repositories {
 dependencies {
     compile 'org.testng:testng:6.11'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
-    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'  // связь с базой данных
+    compile 'commons-net:commons-net:3.6'  //фтп библиотека
+    compile 'org.subethamail:subethasmtp:3.1.7' // почтовая библиотека
 }
 
-test
-    useTestNG{
+test {
+    useTestNG() {
         suites 'src/test/resources/testng-groups.xml'
     }
-    if (project.hasProperty('browser')){
-        systemProperty('browser',"${browser}") //"${browser}" - свойство сборщика
+    if (project.hasProperty('browser')) {
+        systemProperty('browser', "${browser}") //"${browser}" - свойство сборщика
     }
-    if (project.hasProperty('target')){
-        systemProperty('target',"${target}") //"${browser}" - свойство сборщика
+    if (project.hasProperty('target')) {
+        systemProperty('target', "${target}") //"${browser}" - свойство сборщика
     }
-    if (project.hasProperty('verifyUI')){
-        systemProperty('verifyUI',"${verifyUI}") //"${browser}" - свойство сборщика
+    if (project.hasProperty('verifyUI')) {
+        systemProperty('verifyUI', "${verifyUI}") //"${browser}" - свойство сборщика
     }
+}

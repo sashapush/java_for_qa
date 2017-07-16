@@ -8,6 +8,9 @@ import org.testng.annotations.AfterSuite;
 
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * Created by User on 4/20/2017.
@@ -20,12 +23,14 @@ public class TestBase {
     @BeforeSuite
     public void setUp() throws Exception {
         app.init();
+        app.ftp().upload(new File("src/test/resources/config_inc.php"),"config/config_inc.php","config/config_inc.php.back");
     }
 
     @AfterSuite (alwaysRun = true)
 
-    public void tearDown() {
+    public void tearDown() throws IOException {
         app.stop();
+        app.ftp().restore("config/config_inc.php.back","config/config_inc.php");
     }
     }
 
