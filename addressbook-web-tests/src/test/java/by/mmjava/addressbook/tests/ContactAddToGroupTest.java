@@ -64,7 +64,7 @@ public class ContactAddToGroupTest extends TestBase {
                 app.contact().contactAddToGroup(modifiedContact, allGroups);
                 newContactGroups = modifiedContact.getGroups();
                 //assertThat(after.withAdded(allGroups), equalTo(contactGroups.withAddedGroup()));
-           // assertThat(newContactGroups, equalTo(contactGroups.add(allGroups)));
+                //assertThat(newContactGroups, equalTo(contactGroups.add(allGroups)));
                 break;
             }
 

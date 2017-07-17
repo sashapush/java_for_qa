@@ -10,6 +10,8 @@ dependencies {
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'  // связь с базой данных
     compile 'commons-net:commons-net:3.6'  //фтп библиотека
     compile 'org.subethamail:subethasmtp:3.1.7' // почтовая библиотека
+    compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4' //регулярка для
+    compile 'ch.qos.logback:logback-classic:1.2.2'
 }
 
 test {

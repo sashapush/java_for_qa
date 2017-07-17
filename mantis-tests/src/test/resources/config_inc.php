@@ -8,5 +8,7 @@ $g_smtp_host = 'localhost';
 $g_crypto_master_salt     = 'DDOV9NsmgmAg8NUGD5bq4ErtfAV61568dSqMY+eB+ZE=';
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
 $g_signup_use_captcha = OFF;
+$g_default_language = 'english';
+
 
 ?>
