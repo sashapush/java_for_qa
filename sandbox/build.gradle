@@ -1,11 +1,22 @@
 apply plugin: "java"
 apply plugin: "application"
-mainClassName= "Fuck"
+mainClassName= "Square"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 
 repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'org.testng:testng:6.11'
+    //implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    //compile 'org.testng:testng:6.11'
+    implementation 'org.testng:testng:7.4.0'
+}
+
+
+
+tasks.withType(Test){
+    scanForTestClasses = false
+    include "**/*Test.class"
 }

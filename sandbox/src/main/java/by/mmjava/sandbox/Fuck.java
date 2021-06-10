@@ -1,6 +1,6 @@
 package by.mmjava.sandbox;
 
-import com.sun.org.apache.regexp.internal.RE;
+//import com.sun.org.apache.regexp.internal.RE;
 
 public class Fuck {
 	public static void main(String[]  args) {

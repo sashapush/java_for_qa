@@ -5,8 +5,6 @@ import by.mmjava.addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
